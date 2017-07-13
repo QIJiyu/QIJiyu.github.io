@@ -272,7 +272,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/07/13/Charts入门/" itemprop="url">你好世界</a></h1>
+                <a class="post-title-link" href="/2017/07/13/Charts入门/" itemprop="url">Charts图表联动</a></h1>
         
 
         <div class="post-meta">
@@ -321,9 +321,20 @@
       
         
           
-            <blockquote>
-<p>我有一头<strong>小毛驴</strong>，我从来都不骑。</p>
-</blockquote>
+            <p>今天简书上有人问我关于 Charts 多个图表联动的问题, 这个问题在 MPAndroidCharts 上使用它发送的通知即可, 在 ios_charts 上就只有 delegate 去实现了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">- (void)chartValueSelected:(ChartViewBase * __nonnull)chartView entry:(ChartDataEntry * __nonnull)entry highlight:(ChartHighlight * __nonnull)highlight &#123;</div><div class="line">   </div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)chartScaled:(ChartViewBase *)chartView scaleX:(CGFloat)scaleX scaleY:(CGFloat)scaleY &#123;</div><div class="line">    </div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)chartTranslated:(ChartViewBase *)chartView dX:(CGFloat)dX dY:(CGFloat)dY &#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)chartValueNothingSelected:(ChartViewBase * __nonnull)chartView &#123;</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在 Charts 里提供了四个协议方法, 分别对应这选择, 缩放, 拖动和没有选择, 当需要实现拖拽和缩放联动时, 只需要在缩放, 拖动的协议方法下遍历所有子视图, 找到 ChartView 的所有对象, 获取到 ChartView 当前点击的矩阵, 然后使用新的矩阵刷新一下 ChartView  即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">- (void)scaleOrTranslated:(NSArray&lt;__kindof UIView *&gt; *)subviews chartView:(ChartViewBase * _Nonnull)chartView &#123;</div><div class="line">    </div><div class="line">    [subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) &#123;</div><div class="line">        if ([obj isKindOfClass:[CombinedChartView class]]) &#123;</div><div class="line">            CombinedChartView *combinedChartView = (CombinedChartView *)obj;</div><div class="line">            </div><div class="line">            CGAffineTransform srcMatrix = chartView.viewPortHandler.touchMatrix;</div><div class="line">            [combinedChartView.viewPortHandler refreshWithNewMatrix:srcMatrix</div><div class="line">                                                              chart:combinedChartView</div><div class="line">                                                         invalidate:YES];</div><div class="line">        &#125;</div><div class="line">    &#125;];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果需要实现高亮联动也是一样的思路, 在高亮选中的方法下遍历所有的子视图, 找到 chartView 所有的对象, 将 chartView 的某点设置为高亮即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">- (void)chartViewSelected:(NSArray&lt;__kindof UIView *&gt; *)subviews highlight:(ChartHighlight * __nonnull)highlight &#123;</div><div class="line">    </div><div class="line">    [subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) &#123;</div><div class="line">        if ([obj isKindOfClass:[CombinedChartView class]]) &#123;</div><div class="line">            CombinedChartView *combinedChartView = (CombinedChartView *)obj;</div><div class="line">            </div><div class="line">            [combinedChartView highlightValue:highlight];</div><div class="line">        &#125;</div><div class="line">    &#125;];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><p>当然可以小小的优化下, 在快速枚举内判断当前拖拽或者选中的 chartView 的对象和枚举拿到的对象是不是一样, 如果一样的话 break 就可以了</p>
+</li>
+<li><p>如果你还遇到什么问题, 或者有更好的思路, 可以给我留言一起讨论</p>
+</li>
+</ul>
+<hr>
+<p>ps : 最近准备研究下 Realm, 过段时间会更新关于 Realm 的文章, 希望大家继续关注</p>
 
           
         
