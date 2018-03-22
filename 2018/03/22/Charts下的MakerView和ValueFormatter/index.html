@@ -93,12 +93,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="祁继宇&#39;s Blog">
-<meta property="og:url" content="http://QIJiyu.github.io/index.html">
+<meta name="description" content="上次我们说到了动态的刷新数据, 这次我们说下 MarkerView 和 ValueFormatter由于公司之前用的是 Charts 2.x, 更新之后很多方法都变了, 刚好需要修改这部分的代码  先上代码 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Charts下的MakerView和ValueFormatter">
+<meta property="og:url" content="http://QIJiyu.github.io/2018/03/22/Charts下的MakerView和ValueFormatter/index.html">
 <meta property="og:site_name" content="祁继宇&#39;s Blog">
+<meta property="og:description" content="上次我们说到了动态的刷新数据, 这次我们说下 MarkerView 和 ValueFormatter由于公司之前用的是 Charts 2.x, 更新之后很多方法都变了, 刚好需要修改这部分的代码  先上代码 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1478784-a4e028355d7109e2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-03-22T02:05:20.168Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="祁继宇&#39;s Blog">
+<meta name="twitter:title" content="Charts下的MakerView和ValueFormatter">
+<meta name="twitter:description" content="上次我们说到了动态的刷新数据, 这次我们说下 MarkerView 和 ValueFormatter由于公司之前用的是 Charts 2.x, 更新之后很多方法都变了, 刚好需要修改这部分的代码  先上代码 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1478784-a4e028355d7109e2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -126,13 +132,13 @@
 
 
 
-  <link rel="canonical" href="http://QIJiyu.github.io/"/>
+  <link rel="canonical" href="http://QIJiyu.github.io/2018/03/22/Charts下的MakerView和ValueFormatter/"/>
 
 
 
 
 
-  <title>祁继宇's Blog</title>
+  <title>Charts下的MakerView和ValueFormatter | 祁继宇's Blog</title>
   
 
 
@@ -157,9 +163,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-   page-home 
- ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -252,9 +256,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -280,9 +284,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/22/Charts下的MakerView和ValueFormatter/" itemprop="url">Charts下的MakerView和ValueFormatter</a></h1>
+          <h1 class="post-title" itemprop="name headline">Charts下的MakerView和ValueFormatter</h1>
         
 
         <div class="post-meta">
@@ -329,9 +331,7 @@
       
 
       
-        
-          
-            <p>上次我们说到了动态的刷新数据, 这次我们说下 MarkerView 和 ValueFormatter<br>由于公司之前用的是 Charts 2.x, 更新之后很多方法都变了, 刚好需要修改这部分的代码</p>
+        <p>上次我们说到了动态的刷新数据, 这次我们说下 MarkerView 和 ValueFormatter<br>由于公司之前用的是 Charts 2.x, 更新之后很多方法都变了, 刚好需要修改这部分的代码</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/1478784-a4e028355d7109e2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <p>先上代码</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div></pre></td><td class="code"><pre><div class="line">open var xAxisValueFormatter: IAxisValueFormatter?</div><div class="line">open var color: UIColor?</div><div class="line">open var arrowSize = CGSize(width: 15, height: 11)</div><div class="line">open var font: UIFont?</div><div class="line">open var textColor: UIColor?</div><div class="line">open var insets = UIEdgeInsets()</div><div class="line">open var minimumSize = CGSize()</div><div class="line"></div><div class="line">fileprivate var labelns: NSString?</div><div class="line">fileprivate var _labelSize: CGSize = CGSize()</div><div class="line">fileprivate var _paragraphStyle: NSMutableParagraphStyle?</div><div class="line">fileprivate var _drawAttributes = [String : AnyObject]()</div><div class="line"></div><div class="line">public init(color: UIColor,colorStock: UIColor, font: UIFont, insets: UIEdgeInsets, xAxisValueFormatter: IAxisValueFormatter)</div><div class="line">&#123;</div><div class="line">    super.init()</div><div class="line">    </div><div class="line">    self.color = color</div><div class="line">    self.font = font</div><div class="line">    self.textColor = colorStock</div><div class="line">    self.insets = insets</div><div class="line">    self.xAxisValueFormatter = xAxisValueFormatter</div><div class="line">    </div><div class="line">    _paragraphStyle = NSParagraphStyle.default.mutableCopy() as? NSMutableParagraphStyle</div><div class="line">    _paragraphStyle?.alignment = .center</div><div class="line">&#125;</div><div class="line"></div><div class="line">open override func offsetForDrawing(atPoint point: CGPoint) -&gt; CGPoint</div><div class="line">&#123;</div><div class="line">    let size = self.size</div><div class="line">    var point = point</div><div class="line">    point.x -= size.width / 2.0</div><div class="line">    point.y -= size.height</div><div class="line">    return super.offsetForDrawing(atPoint: point)</div><div class="line">&#125;</div><div class="line"></div><div class="line">open override func draw(context: CGContext, point: CGPoint)</div><div class="line">&#123;</div><div class="line">    if labelns == nil</div><div class="line">    &#123;</div><div class="line">        return</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    let offset = self.offsetForDrawing(atPoint: point)</div><div class="line">    let size = self.size</div><div class="line">    </div><div class="line">    var rect = CGRect(</div><div class="line">        origin: CGPoint(</div><div class="line">            x: point.x + offset.x,</div><div class="line">            y: point.y + offset.y),</div><div class="line">        size: size)</div><div class="line">    rect.origin.x -= size.width / 2.0</div><div class="line">    rect.origin.y -= size.height</div><div class="line">    </div><div class="line">    context.saveGState()</div><div class="line">    </div><div class="line">    if let color = color</div><div class="line">    &#123;</div><div class="line">        context.setFillColor(color.cgColor)</div><div class="line">        context.beginPath()</div><div class="line">        context.move(to: CGPoint(</div><div class="line">            x: rect.origin.x,</div><div class="line">            y: rect.origin.y))</div><div class="line">        context.addLine(to: CGPoint(</div><div class="line">            x: rect.origin.x + rect.size.width,</div><div class="line">            y: rect.origin.y))</div><div class="line">        context.addLine(to: CGPoint(</div><div class="line">            x: rect.origin.x + rect.size.width,</div><div class="line">            y: rect.origin.y + rect.size.height - arrowSize.height))</div><div class="line">        context.addLine(to: CGPoint(</div><div class="line">            x: rect.origin.x + (rect.size.width + arrowSize.width) / 2.0,</div><div class="line">            y: rect.origin.y + rect.size.height - arrowSize.height))</div><div class="line">        context.addLine(to: CGPoint(</div><div class="line">            x: rect.origin.x + rect.size.width / 2.0,</div><div class="line">            y: rect.origin.y + rect.size.height))</div><div class="line">        context.addLine(to: CGPoint(</div><div class="line">            x: rect.origin.x + (rect.size.width - arrowSize.width) / 2.0,</div><div class="line">            y: rect.origin.y + rect.size.height - arrowSize.height))</div><div class="line">        context.addLine(to: CGPoint(</div><div class="line">            x: rect.origin.x,</div><div class="line">            y: rect.origin.y + rect.size.height - arrowSize.height))</div><div class="line">        context.addLine(to: CGPoint(</div><div class="line">            x: rect.origin.x,</div><div class="line">            y: rect.origin.y))</div><div class="line">        context.fillPath()</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    rect.origin.y += self.insets.top</div><div class="line">    rect.size.height -= self.insets.top + self.insets.bottom</div><div class="line">    </div><div class="line">    UIGraphicsPushContext(context)</div><div class="line">    </div><div class="line">    labelns?.draw(in: rect, withAttributes: _drawAttributes)</div><div class="line">    </div><div class="line">    UIGraphicsPopContext()</div><div class="line">    </div><div class="line">    context.restoreGState()</div><div class="line">&#125;</div><div class="line"></div><div class="line">open override func refreshContent(entry: ChartDataEntry, highlight: Highlight)</div><div class="line">&#123;</div><div class="line">    setLabel(entry)</div><div class="line">&#125;</div><div class="line"></div><div class="line">open func setLabel(_ entry: ChartDataEntry)</div><div class="line">&#123;</div><div class="line">    </div><div class="line">    labelns = String(format: &quot;7日年化收益率: %.2f%%\n时间: %@&quot;, Float(entry.y) * 100, xAxisValueFormatter!.stringForValue(entry.x, axis: nil)) as NSString?</div><div class="line">    </div><div class="line">    _drawAttributes.removeAll()</div><div class="line">    _drawAttributes[NSFontAttributeName] = self.font</div><div class="line">    _drawAttributes[NSParagraphStyleAttributeName] = _paragraphStyle</div><div class="line">    _drawAttributes[NSForegroundColorAttributeName] = UIColor.white</div><div class="line">    </div><div class="line">    _labelSize = labelns?.size(attributes: _drawAttributes) ?? CGSize.zero</div><div class="line">    </div><div class="line">    var size = CGSize()</div><div class="line">    size.width = _labelSize.width + self.insets.left + self.insets.right</div><div class="line">    size.height = _labelSize.height + self.insets.top + self.insets.bottom</div><div class="line">    size.width = max(minimumSize.width, size.width)</div><div class="line">    size.height = max(minimumSize.height, size.height)</div><div class="line">    self.size = size</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -342,20 +342,27 @@
 <p>协议写你需要的格式或者其他特定坐标值就可以了, 使用时 <code>chartView.xAxis.valueFormatter = [CustomValueFormatter new]</code></p>
 <p>由于 Charts 封装的功能已经十分具体, 详细, 详细代码就不放出来了, 在 Charts 的官方 Demo 还是可以找到的, 如果在使用当中遇到什么问题或者难以解决的需求, 可以给我留言共同探讨</p>
 
-          
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
     <div>
+      
+        
+
       
     </div>
 
@@ -363,146 +370,38 @@
       
 
       
-
-      
-
       
       
-        <div class="post-eof"></div>
+
       
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://QIJiyu.github.io/2017/07/13/Charts入门/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="祁继宇">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="祁继宇's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/13/Charts入门/" itemprop="url">Charts图表联动</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-13T14:55:05+08:00">
-                2017-07-13
-              </time>
+              <a href="/2017/07/13/Charts入门/" rel="next" title="Charts图表联动">
+                <i class="fa fa-chevron-left"></i> Charts图表联动
+              </a>
             
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <p>今天简书上有人问我关于 Charts 多个图表联动的问题, 这个问题在 MPAndroidCharts 上使用它发送的通知即可, 在 ios_charts 上就只有 delegate 去实现了</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">- (void)chartValueSelected:(ChartViewBase * __nonnull)chartView entry:(ChartDataEntry * __nonnull)entry highlight:(ChartHighlight * __nonnull)highlight &#123;</div><div class="line">   </div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)chartScaled:(ChartViewBase *)chartView scaleX:(CGFloat)scaleX scaleY:(CGFloat)scaleY &#123;</div><div class="line">    </div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)chartTranslated:(ChartViewBase *)chartView dX:(CGFloat)dX dY:(CGFloat)dY &#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)chartValueNothingSelected:(ChartViewBase * __nonnull)chartView &#123;</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>在 Charts 里提供了四个协议方法, 分别对应这选择, 缩放, 拖动和没有选择, 当需要实现拖拽和缩放联动时, 只需要在缩放, 拖动的协议方法下遍历所有子视图, 找到 ChartView 的所有对象, 获取到 ChartView 当前点击的矩阵, 然后使用新的矩阵刷新一下 ChartView  即可</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">- (void)scaleOrTranslated:(NSArray&lt;__kindof UIView *&gt; *)subviews chartView:(ChartViewBase * _Nonnull)chartView &#123;</div><div class="line">    </div><div class="line">    [subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) &#123;</div><div class="line">        if ([obj isKindOfClass:[CombinedChartView class]]) &#123;</div><div class="line">            CombinedChartView *combinedChartView = (CombinedChartView *)obj;</div><div class="line">            </div><div class="line">            CGAffineTransform srcMatrix = chartView.viewPortHandler.touchMatrix;</div><div class="line">            [combinedChartView.viewPortHandler refreshWithNewMatrix:srcMatrix</div><div class="line">                                                              chart:combinedChartView</div><div class="line">                                                         invalidate:YES];</div><div class="line">        &#125;</div><div class="line">    &#125;];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>如果需要实现高亮联动也是一样的思路, 在高亮选中的方法下遍历所有的子视图, 找到 chartView 所有的对象, 将 chartView 的某点设置为高亮即可</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">- (void)chartViewSelected:(NSArray&lt;__kindof UIView *&gt; *)subviews highlight:(ChartHighlight * __nonnull)highlight &#123;</div><div class="line">    </div><div class="line">    [subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) &#123;</div><div class="line">        if ([obj isKindOfClass:[CombinedChartView class]]) &#123;</div><div class="line">            CombinedChartView *combinedChartView = (CombinedChartView *)obj;</div><div class="line">            </div><div class="line">            [combinedChartView highlightValue:highlight];</div><div class="line">        &#125;</div><div class="line">    &#125;];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li><p>当然可以小小的优化下, 在快速枚举内判断当前拖拽或者选中的 chartView 的对象和枚举拿到的对象是不是一样, 如果一样的话 break 就可以了</p>
-</li>
-<li><p>如果你还遇到什么问题, 或者有更好的思路, 可以给我留言一起讨论</p>
-</li>
-</ul>
-<hr>
-<p>ps : 最近准备研究下 Realm, 过段时间会更新关于 Realm 的文章, 希望大家继续关注</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -510,6 +409,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -688,10 +591,10 @@
   
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
 
-  
+
 
   
 

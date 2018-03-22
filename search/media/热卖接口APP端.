@@ -1,0 +1,213 @@
+## app接口
+
+所有查询默认为查询可售、上架产品
+
+### 字段说明： 
+
+| 参数名称     | 类型       | 描述        | 字典&样         | 说明                                       |
+| -------- | -------- | --------- | ------------ | ---------------------------------------- |
+| PKGNAME  | String   | 方案名称      | 稳赢，热卖        | package_name                             |
+| PT       | String   | 产品类别      | 见热卖产品字典      | product_type                             |
+| PN       | String   | 产品名称      | 产品1          | product_name                             |
+| PDSPT    | String   | 产品描述      | 这是个产品        | product_description                      |
+| PCD      | String   | 产品代码      | s00001       | product_code                             |
+| PP       | int      | 产品在方案中的顺序 | 1            | product_priority                         |
+| PCTG     | String   | 产品类型      | 见热卖产品字典      | product_category                         |
+| PST      | int      | 产品显示状态    | 见热卖产品字典      | product_show_type                        |
+| PS       | int      | 产品来源      | 见热卖产品字典      | product_source                           |
+| PSDYY    | String   | 七日年化收益率   | 3.1%         | product_seven_day_yield_of_year          |
+| PDT      | int      | 产品交易状态    | 见字典          | product_deal_type                        |
+| PL       | String   | 投资期限      |              | product_life                             |
+| PPMBM    | int      | 起投金额      |              | product_person_min_buy_money             |
+| PPMAM    | int      | 追加金额      |              | product_person_min_add_money             |
+| PPMBM    | double   | 起投金额      | 50000        | product_person_min_buy_money             |
+| TTR      | String   | 万份收益      | 1.03         | ten_thousand_returns                     |
+| PNW      | double   | 最新净值      | 0.81         | product_net_worth                        |
+| PEARR    | String   | 年化收益率     | 2.1%+2%      | product_expected_annualized_rate_of_return |
+| PKGID    | String   | 方案id      | 1            | package_id                               |
+| PKGSN    | int      | 方案序号      | 1            | package_sequence_number                  |
+| PKGPN    | int      | 方案产品数量    | 5            | package_product_num                      |
+| PKGP     | int      | 优先级       | 1            | package_priority                         |
+| PKGET    | dateTime | 结束日期      | 2017-06-03   | package_end_time                         |
+| PKGBT    | dateTime | 开始日期      | 2017-05-03   | package_begin_time                       |
+| PKGDSPT  | String   | 方案描述      | 这是一个测试方案     | package_description                      |
+| PKGPOD   | dateTime | 方案投放日期    | 2017-06-09   | package_put_on_day                       |
+| PAGENUM  | int      | 当前第几页     | 1            | 从0开始，0是第一页                               |
+| PAGESIZE | int      | 每页数据条数    | 5            | 必须大于0，如果为0则返回空产品列表                       |
+| ATI      | String   | 附件类型      | 1            | attachment_type_id                       |
+| ATN      | String   | 附件类型名称    | 公告           | attachment_type_name                     |
+| ON       | String   | 附件名称      | 14天理财合同书.doc | ori_name                                 |
+
+##### 按照方案查询产品列表
+
+​	getProductLIstByPackage(JSON )
+
+​	return  JSON
+
+​	输入：方案名称，获取产品个数
+
+输入样例：{"FUNCTIONCODE": "hotProduct01																		","PARAMS": {"PACKAGENAME": "0001","PAGESIZE":"3","PAGENUM":"0"},"TOKEN": ""} 
+
+其中pageSize和Pagenum可选，pageSize默认为5，pageNum默认为0，传入该值则覆盖默认。
+
+##### 根据产品类型返回的数据有不同：
+
+- 货币型基金：产品类型，产品名称，七日年化收益率，起投金额，万份收益
+
+
+- 其他类型基金：产品类型，产品名称，近1个月涨跌幅，起投金额，最新净值
+
+
+- OTC证券理财产品：产品类型，产品名称，年化收益率，投资期限，起投金额
+- 14天理财产品：产品类型，产品名称，年化收益率，投资期限，起投金额
+
+
+- OTC银行理财产品：：产品类型，产品名称，年化收益率，投资期限，起投金额
+
+
+
+| 参数名称         | 是否必须 | 类型     | 描述                           | 默认值          |
+| ------------ | ---- | ------ | :--------------------------- | ------------ |
+| FUNCTIONCODE | true | string |                              | hotProduct01 |
+| PARAMS       | true | json   | PACKAGENAME，PAGESIZE，PAGENUM |              |
+| TOKEN        | true | string |                              |              |
+
+ 
+
+产品类型，产品名称，七日年化收益率及数值，起投金额及数值，万份收益
+
+返回格式样例：{"message":{"PKGNAME":"热卖","PKGET ":"2018-01- 01","PKGID":"65","PKGSN ":"1","PKGPN":"5","PKGP ":"1","PKGBT ":"2017-01- 19","PKGDSPT ":"这是一个测试方案","prod":[{"PS":"uf2.0","PP":"31","PSDYY":" 1.2%","PNW":"0.80","PEARR":"5.70%+2%","PDSPT":"产品描述","TTR":"1.03","PCD":"S466 76","PT":"5","PCTG":"3","PN":"产品1000","PL":"85","PPMBM":"30000","PPMAM":"1"}]},"code":"200","type":"success"} 
+
+表达式:(json){"message":(json){方案信息a,方案信息b,…………,prod:(jsonArray)[产品详细信息列表],返回码,返回值}
+
+格式为JSON，最外围为写死的message，message内部为json结构，包括方案信息，返回代码，返回值，产品详细信息列表，其中产品详细信息列表为JSONArray，内部为每个产品信息的json
+
+
+
+##### 查询首页产品  
+
+getMainPageProduct( ) return  JSON
+
+| 参数名称         | 是否必须 | 类型     | 描述   | 默认值          |
+| ------------ | ---- | ------ | :--- | ------------ |
+| FUNCTIONCODE | true | string |      | hotProduct00 |
+| TOKEN        | true | string |      |              |
+
+返回样式：{"message"{"PS":"uf2.0","PP":"31","PSDYY":" 1.2%","PNW":"0.80","PEARR":"5.70%+2%","PDSPT":"产品描述","TTR":"1.03","PCD":"S466 76","PT":"5","PCTG":"3","PN":"产品1000","PL":"85","PPMBM":"30000","PPMAM":"1"},"code":"200","type":"success"} 
+
+表达式:(json){"message":(json){产品信息a,产品信息b,…………,返回码,返回值}
+
+格式为JSON，最外围为写死的message，message内部为json结构，包括产品信息，返回代码，返回值，产品详细信息列表，其中产品详细信息列表为JSONArray，内部为每个产品信息的json
+
+
+
+##### 查询产品协议
+
+getProductAttachment(JSON) 
+
+return  JSON
+
+| 参数名称         | 是否必须 | 类型     | 描述        | 默认值          |
+| ------------ | ---- | ------ | :-------- | ------------ |
+| FUNCTIONCODE | true | string |           | hotProduct01 |
+| PARAMS       | true | json   | PRODUCTID |              |
+| TOKEN        | true | string |           |              |
+
+
+
+返回样式：{"message"{"ATTACHMENT":[{"ON":"14天理财公告","URI":"http://test.tn.com/static/file/323fd7bd-ab59-4628-8742-558efdba8f3b.xlsx","ATI":"1","ATN":"公告"},{"ON":"14天理财合同","URI":"http://test.tn.com/static/file/323fd7bd-ab59-4628-8742-558efdba8f3b.xlsx","ATI":"2","ATN":"合同"}],"code":"200","type":"success"} 
+
+表达式:(json){"message":ATTACHMENT:(jsonArray)[产品协议列表],,返回码,返回值}
+
+
+
+# 数据字典：
+
+## 产品分类：
+
+- 1: 场外基金
+- 2：资管产品
+- 3：OTC证券产品
+- 4：OTC银行理财
+
+## 产品类型:
+
+- 1: 股票型基金
+- 2: 货币型基金
+- 3: 偏股型基金
+- 4: 股债平衡型基金
+- 5: 偏债型基金
+- 6: 债券型基金
+- 7: 保本型基金
+- 8: 指数型基金
+- 9: 短债型基金
+- a: QDII基金
+- b: 混合基金
+- c: 券商理财
+- d: 多空杠杆
+- e: 私募债
+- f: 私募股权
+- g: 衍生品
+- h: 资产支持证券
+- i: 收益凭证
+- j: 私募基金
+- m: 现金产品
+- n: 一对多产品
+- x: 短期理财产品
+- z: 其他
+
+## 风险等级:
+
+- 0: 默认等级
+- 1: 低风险等级
+- 2: 中低风险等级
+- 3: 中风险等级
+- 4: 中高风险等级
+- 5: 高风险等级
+- 6: 极高风险等级
+
+## 产品交易状态:
+
+- 1: 开放期
+- 2：认购期
+- 3: 预约认购期
+- 4: 产品成立
+- 5: 产品终止
+- 6: 停止交易
+- 7: 停止申购
+- 8: 停止赎回
+
+## 产品显示状态:
+
+- 0: 未发布
+- 1: 预约中
+- 2: 预约已满
+- 3: 认购中
+- 4: 已售罄
+- -1:代表该产品不是OTC产品
+
+## 收益类型:
+
+- 1: 保本固定收益
+- 2: 保本浮动收益
+- 3: 非保本浮动收益
+- 4: 非保本固定收益
+- 9: 其他
+
+## 投资类型:
+
+- 1: 固定收益类
+- 2: 权益类
+- 3: 期货融资证券类
+- 4: 复杂高风险类
+- 5: 其他
+
+## 协议类型
+
+- 0：协议
+- 1：公告
+
+
+
+
+
