@@ -263,6 +263,269 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://QIJiyu.github.io/2018/03/22/Charts入门/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="祁继宇">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="祁继宇's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/22/Charts入门/" itemprop="url">Charts入门</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-22T10:27:46+08:00">
+                2018-03-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近工程用到了 Charts, 网上苦苦找寻, 只发现了 Android 的详细使用说明, 于是决定翻译一下, 方便大家以后使用, Android 原文: <a href="http://blog.csdn.net/u014136472/article/details/50273309" target="_blank" rel="external">庄宏基的博客</a></p>
+<p><a href="https://github.com/danielgindi/Charts" target="_blank" rel="external">Charts 地址</a></p>
+<p>• Chart 支持折线图、柱状图、散点图、烛状图、气泡图、饼状图和蜘蛛网状图, 除此之外还支持多种图表混合使用</p>
+<p>• Chart 支持缩放、拖拽、选择、动画</p>
+<p>• Chart 使用 Swift, 如果工程为 OC, 则需要混编</p>
+<p><1> cocoapods 导入(或 Github 下载以后, 找到 Charts 下 Classes 文件夹手动导入即可)</1></p>
+<p><2> <code>Build Settings</code>-<code>Build Options</code>-<code>Embedded Content Contains Swift Code</code>-<code>YES</code> </2></p>
+<p><3> #import &lt;工程名-Swift.h&gt;</3></p>
+<p>用法及其基本属性</p>
+<p>拿 CombinedChartView(复合图表) 举例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">CombinedChartView *chartView = [[CombinedChartView alloc] initWithFrame:frame];</div><div class="line"></div><div class="line">// 可以添加</div><div class="line">CombinedChartDrawOrderBar,</div><div class="line">CombinedChartDrawOrderBubble,</div><div class="line">CombinedChartDrawOrderCandle,</div><div class="line">CombinedChartDrawOrderLine,</div><div class="line">CombinedChartDrawOrderScatter</div><div class="line"></div><div class="line">chartView.drawOrder = @[CombinedChartDrawOrderLine];</div><div class="line"></div><div class="line">chartView.delegate = self;</div><div class="line"></div><div class="line">[self.view addSubview:chartView];</div><div class="line"></div><div class="line">// 设置 chartView 的数据源</div><div class="line">CombinedChartData *data = [[CombinedChartData alloc] initWithXVals:@[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]];</div><div class="line"></div><div class="line">LineChartData *d = [[LineChartData alloc] init];</div><div class="line"></div><div class="line">NSMutableArray *entries = @[].mutableCopy;</div><div class="line"></div><div class="line">for (int index = 0; index &lt; ITEM_COUNT; index++) &#123;</div><div class="line"></div><div class="line">    [entries addObject [[ChartDataEntry alloc] initWithValue:(arc4random_uniform(15) + 10) xIndex:index]];</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">LineChartDataSet *set = [[LineChartDataSet alloc] initWithYVals:entries label:@&quot;Line DataSet&quot;];</div><div class="line"></div><div class="line">[d addDataSet:set];</div><div class="line"></div><div class="line">data.lineData = d;</div><div class="line"></div><div class="line">chartView.data = data;</div></pre></td></tr></table></figure>
+<p>ChartViewDelegate</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">// 选中 chartView 上的某个点</div><div class="line"></div><div class="line">- (void)chartValueSelected:(ChartViewBase * _Nonnull)chartView entry:(ChartDataEntry * _Nonnull)entry dataSetIndex:(NSInteger)dataSetIndex highlight:(ChartHighlight * _Nonnull)highlight &#123;</div><div class="line"></div><div class="line">    //entry 里有xIndex(下标)和 value(下标对应的值)</div><div class="line"></div><div class="line">    //dataSetIndex 为选中数据集合的 index</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">// 没有选中时</div><div class="line"></div><div class="line">- (void)chartValueNothingSelected:(ChartViewBase * _Nonnull)chartView &#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">// chartView 缩放时</div><div class="line"></div><div class="line">- (void)chartScaled:(ChartViewBase * _Nonnull)chartView scaleX:(CGFloat)scaleX scaleY:(CGFloat)scaleY &#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">// chartView 拖拽时</div><div class="line"></div><div class="line">- (void)chartTranslated:(ChartViewBase * _Nonnull)chartView dX:(CGFloat)dX dY:(CGFloat)dY &#123;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>属性:</p>
+<p>分为对 <code>ChartView</code>, <code>ChartXAxis</code>, <code>ChartYAxis</code>, <code>ChartDataSet</code> 的设置</p>
+<p>• ChartView</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">chartView.descriptionText = @&quot;这是个图表&quot;;// 右下角描述</div><div class="line"></div><div class="line">chartView.noDataTextDescription = &quot;No Data&quot;;// 没有数据时描述</div><div class="line"></div><div class="line">chartView.drawGridBackgroundEnabled = YES;// 网格背景</div><div class="line"></div><div class="line">chartView.gridBackgroundColor = [UIColor redColor];//  背景颜色</div><div class="line"></div><div class="line">chartView.drawBarShadowEnabled = NO;// 阴影</div><div class="line"></div><div class="line">chartView.drawBordersEnabled = YES;// 边框</div><div class="line"></div><div class="line">chartView.pinchZoomEnabled = YES// XY 轴同时缩放</div><div class="line"></div><div class="line">chartView.scaleEnabled = YES;// 缩放</div><div class="line"></div><div class="line">chartView.highlightPerDragEnabled = YES;// 能否拖拽高亮线(数据点与坐标的提示线)</div><div class="line"></div><div class="line">chartView.autoScaleMinMaxEnabled = YES;// 缩放时自动调整最大最小值</div><div class="line"></div><div class="line">chartView.legend.enabled = NO;// 图例是否显示</div><div class="line"></div><div class="line">chartView.drawBordersEnabled = YES;// 表格边框是否显示</div><div class="line"></div><div class="line">chartView.scaleYEnabled = NO;//  缩放 Y 轴</div><div class="line"></div><div class="line">chartView.scaleXEnabled = YES;// 缩放 X 轴</div><div class="line"></div><div class="line">chartView.doubleTapToZoomEnabled = YES;//  双击缩放</div><div class="line"></div><div class="line">chartView.borderColor = [UIColor BlueColor];// 边框颜色</div><div class="line"></div><div class="line">chartView.dragDecelerationEnabled = YES;// 结束拖拽减速</div><div class="line"></div><div class="line">chartView.maxVisibleValueCount = 30;// 可见标签数量最大值(setDrawValues才生效)</div><div class="line"></div><div class="line">[chartView setExtraOffsetsWithLeft:10 top:0 right:10 bottom:0];// 偏移</div></pre></td></tr></table></figure>
+<p>• ChartXAxis</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">ChartXAxis *xAxis = chartView.xAxis;</div><div class="line"></div><div class="line">[xAxis setLabelsToSkip:4];// 跳过显示的标签数</div><div class="line"></div><div class="line">xAxis.labelPosition = XAxisLabelPositionBottom;// X轴的位置</div><div class="line"></div><div class="line">xAxis.labelTextColor = [UIColor whiteColor];//  颜色</div><div class="line"></div><div class="line">xAxis.spaceBetweenLabels = 16.0;// 标签之间的间距</div><div class="line"></div><div class="line">xAxis.avoidFirstLastClippingEnabled = YES;// 两侧超出图表</div><div class="line"></div><div class="line">xAxis.gridColor = [UIColor whiteColor];// X 轴网格线颜色</div><div class="line"></div><div class="line">xAxis.drawAxisLineEnabled = NO;// X 轴边线</div><div class="line"></div><div class="line">xAxis.drawGridLinesEnabled = NO;// X 轴网格线</div></pre></td></tr></table></figure>
+<p>• ChartYAxis</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">ChartYAxis *rightAxis = chartView.rightAxis;</div><div class="line"></div><div class="line">rightAxis.drawGridLinesEnabled = NO;// Y 轴网格线</div><div class="line"></div><div class="line">rightAxis.labelCount = 7;//  标签个数</div><div class="line"></div><div class="line">rightAxis.drawAxisLineEnabled = NO;// Y 轴边线</div><div class="line"></div><div class="line">rightAxis.startAtZeroEnabled = NO;//  从零显示</div><div class="line"></div><div class="line">rightAxis.granularityEnabled = YES;// 轴密度自适应</div><div class="line"></div><div class="line">rightAxis.labelPosition = YAxisLabelPositionInsideChart;// Y  轴位置</div><div class="line"></div><div class="line">rightAxis.spaceTop = 10;// 最高值的顶部间距占最高值的值的百分比</div><div class="line"></div><div class="line">rightAxis.showOnlyMinMaxEnabled = YES;// 只显示最大最小</div></pre></td></tr></table></figure>
+<p>• ChartDataSet</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">LineChartDataSet *set = [[LineChartDataSet alloc] initWithYVals:NSArray&lt;ChartDataEntry *&gt;];</div><div class="line"></div><div class="line">set.drawCubicEnabled = NO;// 曲线为圆滑曲线</div><div class="line"></div><div class="line">set.cubicIntensity = 0.2;// 曲线弧度</div><div class="line"></div><div class="line">set.drawCirclesEnabled = NO;// 每个点是否显示</div><div class="line"></div><div class="line">set.lineWidth = 0.8f;// 线宽</div><div class="line"></div><div class="line">set.circleRadius = 4.0;// 每个点的切角</div><div class="line"></div><div class="line">[set setCircleColor:UIColor.whiteColor];// 每个点的颜色</div><div class="line"></div><div class="line">set.highlightColor = [UIColor redColor];// 点击某个点时，横竖两条线的颜色</div><div class="line"></div><div class="line">set.fillColor = [UIColor whiteColor];// 填充颜色</div><div class="line"></div><div class="line">set.drawHorizontalHighlightIndicatorEnabled = NO;// 点击某个点时，水平线是否显示</div><div class="line"></div><div class="line">set.drawValuesEnabled = YES;// 在点上绘制Value</div><div class="line"></div><div class="line">// 渐变数组</div><div class="line"></div><div class="line">NSArray *gradientColors = @[(id)COLOR_BLUE.CGColor,(id)COLOR_BLUE.CGColor];</div><div class="line"></div><div class="line">CGGradientRef gradient = CGGradientCreateWithColors(nil, (CFArrayRef)gradientColors, nil);</div><div class="line"></div><div class="line">// 渐变设置</div><div class="line"></div><div class="line">set.fillAlpha = 0.13f;</div><div class="line"></div><div class="line">set.fill = [ChartFill fillWithLinearGradient:gradient angle:90.f];</div><div class="line"></div><div class="line">set.drawFilledEnabled = YES;</div></pre></td></tr></table></figure>
+<p>…还有很多, 就不一一列举了, 如果还有什么需要, 可以留言, 我会一一补充的, 后续还有实时数据, 动画, <code>MakerView</code>等其它</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://QIJiyu.github.io/2018/03/22/Charts进阶/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="祁继宇">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="祁继宇's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/22/Charts进阶/" itemprop="url">Charts进阶</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-22T10:13:49+08:00">
+                2018-03-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近一个项目是做金融的, 需要实时更新数据, 在 ChartData 里面发现了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/// Removes the given Entry object from the DataSet at the specified index.</div><div class="line">- (BOOL)removeEntry:(ChartDataEntry * _Null_unspecified)entry dataSetIndex:(NSInteger)dataSetIndex;</div></pre></td></tr></table></figure>
+<p>官方注释说可以根据 <code>DataSet</code> 的索引删除某个条目的对象, 那么我们开始</p>
+<p>需求是对某支股票的点进行实时刷新, 也就是如果最后的一个点有更新, 我只需要把它从 <code>ChartData</code>  删掉, 再加上更新的数据, 刷新 <code>ChartView</code> 就可以了</p>
+<p>下面是分时图里部分代码, 由于分时图存在分时线和均线, 需要分别取出, 分别操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">// 判断最后一个点是否有更新(是否删除最后一个点)</div><div class="line"></div><div class="line">if (isVover) &#123;</div><div class="line"></div><div class="line">    // 拿到 chartView 的数据源</div><div class="line">    LineChartData *beforeLineData = _chartView.lineData;</div><div class="line">    </div><div class="line">    // 找到 chartView 的数据集合</div><div class="line">    NSInteger indexLastDataSet = beforeLineData.dataSetCount - 2;// 分时</div><div class="line"></div><div class="line">    NSInteger averageIndexLastDataSet = beforeLineData.dataSetCount - 1;// 均线</div><div class="line">    </div><div class="line">    // 根据 Index  找到 ChartData  里面需要修改的 DataSet</div><div class="line">    </div><div class="line">    LineChartDataSet *lastDataSet = (LineChartDataSet *)[beforeLineData getDataSetByIndex:indexLastDataSet];// 分时</div><div class="line">    </div><div class="line">    LineChartDataSet *averageLastDataSet = (LineChartDataSet *)[beforeLineData getDataSetByIndex:averageIndexLastDataSet];// 均线</div><div class="line"></div><div class="line">    if (lastDataSet != nil) &#123;</div><div class="line"></div><div class="line">        //  根据 DataSet  找到最后一个点进行删除</div><div class="line">        ChartDataEntry *lastEntry = [lastDataSet entryForXIndex:lastDataSet.entryCount - 1];// 分时</div><div class="line">    </div><div class="line">        ChartDataEntry *averageLastEntry = [averageLastDataSet entryForXIndex:averageLastDataSet.entryCount - 1];// 均线</div><div class="line">    </div><div class="line">        [beforeLineData removeEntry:lastEntry dataSetIndex:indexLastDataSet];// 分时</div><div class="line">    </div><div class="line">        [beforeLineData removeEntry:averageLastEntry dataSetIndex:averageIndexLastDataSet];// 均线</div><div class="line">    </div><div class="line">        // 然后再创建两个新的 Entry  加到 Data</div><div class="line">        ChartDataEntry *dataEntry = [[ChartDataEntry alloc] initWithValue:priceValue/*传来的现价*/  xIndex:lastDataSet.entryCount];</div><div class="line">    </div><div class="line">        ChartDataEntry *averageDataEntry = [[ChartDataEntry alloc] initWithValue:averageValue/*传来的均价*/ xIndex:averageLastDataSet.entryCount];</div><div class="line">    </div><div class="line">        [beforeLineData addEntry:dataEntry dataSetIndex:indexLastDataSet];</div><div class="line">    </div><div class="line">        [beforeLineData addEntry:averageDataEntry dataSetIndex:averageIndexLastDataSet];</div><div class="line">    </div><div class="line">        // 最后要通知 chartView 对 DataSet  进行了更新</div><div class="line">    </div><div class="line">        [_chartView notifyDataSetChanged];</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>除此之外, ChartData 里面还提供了</p>
+<p>• 新增一个横坐标<br><code>- (void)addXValue:(NSString * _Nullable)xVal;</code></p>
+<p>• 删除一个横坐标<br><code>- (void)removeXValue:(NSInteger)index;</code></p>
+<p>• 新增一组数据<br><code>- (void)addDataSet:(id_Null_unspecified)d;</code></p>
+<p>• 删除一组数据<br><code>- (BOOL)removeDataSet:(id_Null_unspecified)dataSet;</code></p>
+<p>• 根据索引删除一组数据<br><code>- (BOOL)removeDataSetByIndex:(NSInteger)index;</code></p>
+<p>• 根据 DataSet 索引和点在 DataSet 下的索引删除一个点<br><code>- (BOOL)removeEntryByXIndex:(NSInteger)xIndex dataSetIndex:(NSInteger)dataSetIndex;</code></p>
+<p>这些用法都大同小异, 只要清楚了解你要操作的数据, 使用起来还是很方便的</p>
+<p>下次我们再聊聊 <code>MakerView</code> 和 <code>ValueFormatter</code></p>
+<p>最后附一张成品</p>
+<p><img src="/Users/Yu/Desktop/14B2D7C77961.png" alt="14B2D7"></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://QIJiyu.github.io/2018/03/22/Charts下的MakerView和ValueFormatter/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -384,7 +647,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://QIJiyu.github.io/2017/07/13/Charts入门/">
+    <link itemprop="mainEntityOfPage" href="http://QIJiyu.github.io/2017/07/13/Charts图表联动/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="祁继宇">
@@ -403,7 +666,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/07/13/Charts入门/" itemprop="url">Charts图表联动</a></h1>
+                <a class="post-title-link" href="/2017/07/13/Charts图表联动/" itemprop="url">Charts图表联动</a></h1>
         
 
         <div class="post-meta">
@@ -546,7 +809,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

@@ -1,0 +1,664 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="最近工程用到了 Charts, 网上苦苦找寻, 只发现了 Android 的详细使用说明, 于是决定翻译一下, 方便大家以后使用, Android 原文: 庄宏基的博客 Charts 地址 • Chart 支持折线图、柱状图、散点图、烛状图、气泡图、饼状图和蜘蛛网状图, 除此之外还支持多种图表混合使用 • Chart 支持缩放、拖拽、选择、动画 • Chart 使用 Swift, 如果工程为 OC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Charts入门">
+<meta property="og:url" content="http://QIJiyu.github.io/2018/03/22/Charts入门/index.html">
+<meta property="og:site_name" content="祁继宇&#39;s Blog">
+<meta property="og:description" content="最近工程用到了 Charts, 网上苦苦找寻, 只发现了 Android 的详细使用说明, 于是决定翻译一下, 方便大家以后使用, Android 原文: 庄宏基的博客 Charts 地址 • Chart 支持折线图、柱状图、散点图、烛状图、气泡图、饼状图和蜘蛛网状图, 除此之外还支持多种图表混合使用 • Chart 支持缩放、拖拽、选择、动画 • Chart 使用 Swift, 如果工程为 OC">
+<meta property="og:updated_time" content="2018-03-22T03:03:21.891Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Charts入门">
+<meta name="twitter:description" content="最近工程用到了 Charts, 网上苦苦找寻, 只发现了 Android 的详细使用说明, 于是决定翻译一下, 方便大家以后使用, Android 原文: 庄宏基的博客 Charts 地址 • Chart 支持折线图、柱状图、散点图、烛状图、气泡图、饼状图和蜘蛛网状图, 除此之外还支持多种图表混合使用 • Chart 支持缩放、拖拽、选择、动画 • Chart 使用 Swift, 如果工程为 OC">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://QIJiyu.github.io/2018/03/22/Charts入门/"/>
+
+
+
+
+
+  <title>Charts入门 | 祁继宇's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">祁继宇's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-search">
+          <a href="/search/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://QIJiyu.github.io/2018/03/22/Charts入门/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="祁继宇">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="祁继宇's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Charts入门</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-22T10:27:46+08:00">
+                2018-03-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近工程用到了 Charts, 网上苦苦找寻, 只发现了 Android 的详细使用说明, 于是决定翻译一下, 方便大家以后使用, Android 原文: <a href="http://blog.csdn.net/u014136472/article/details/50273309" target="_blank" rel="external">庄宏基的博客</a></p>
+<p><a href="https://github.com/danielgindi/Charts" target="_blank" rel="external">Charts 地址</a></p>
+<p>• Chart 支持折线图、柱状图、散点图、烛状图、气泡图、饼状图和蜘蛛网状图, 除此之外还支持多种图表混合使用</p>
+<p>• Chart 支持缩放、拖拽、选择、动画</p>
+<p>• Chart 使用 Swift, 如果工程为 OC, 则需要混编</p>
+<p><1> cocoapods 导入(或 Github 下载以后, 找到 Charts 下 Classes 文件夹手动导入即可)</1></p>
+<p><2> <code>Build Settings</code>-<code>Build Options</code>-<code>Embedded Content Contains Swift Code</code>-<code>YES</code> </2></p>
+<p><3> #import &lt;工程名-Swift.h&gt;</3></p>
+<p>用法及其基本属性</p>
+<p>拿 CombinedChartView(复合图表) 举例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">CombinedChartView *chartView = [[CombinedChartView alloc] initWithFrame:frame];</div><div class="line"></div><div class="line">// 可以添加</div><div class="line">CombinedChartDrawOrderBar,</div><div class="line">CombinedChartDrawOrderBubble,</div><div class="line">CombinedChartDrawOrderCandle,</div><div class="line">CombinedChartDrawOrderLine,</div><div class="line">CombinedChartDrawOrderScatter</div><div class="line"></div><div class="line">chartView.drawOrder = @[CombinedChartDrawOrderLine];</div><div class="line"></div><div class="line">chartView.delegate = self;</div><div class="line"></div><div class="line">[self.view addSubview:chartView];</div><div class="line"></div><div class="line">// 设置 chartView 的数据源</div><div class="line">CombinedChartData *data = [[CombinedChartData alloc] initWithXVals:@[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]];</div><div class="line"></div><div class="line">LineChartData *d = [[LineChartData alloc] init];</div><div class="line"></div><div class="line">NSMutableArray *entries = @[].mutableCopy;</div><div class="line"></div><div class="line">for (int index = 0; index &lt; ITEM_COUNT; index++) &#123;</div><div class="line"></div><div class="line">    [entries addObject [[ChartDataEntry alloc] initWithValue:(arc4random_uniform(15) + 10) xIndex:index]];</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">LineChartDataSet *set = [[LineChartDataSet alloc] initWithYVals:entries label:@&quot;Line DataSet&quot;];</div><div class="line"></div><div class="line">[d addDataSet:set];</div><div class="line"></div><div class="line">data.lineData = d;</div><div class="line"></div><div class="line">chartView.data = data;</div></pre></td></tr></table></figure>
+<p>ChartViewDelegate</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">// 选中 chartView 上的某个点</div><div class="line"></div><div class="line">- (void)chartValueSelected:(ChartViewBase * _Nonnull)chartView entry:(ChartDataEntry * _Nonnull)entry dataSetIndex:(NSInteger)dataSetIndex highlight:(ChartHighlight * _Nonnull)highlight &#123;</div><div class="line"></div><div class="line">    //entry 里有xIndex(下标)和 value(下标对应的值)</div><div class="line"></div><div class="line">    //dataSetIndex 为选中数据集合的 index</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">// 没有选中时</div><div class="line"></div><div class="line">- (void)chartValueNothingSelected:(ChartViewBase * _Nonnull)chartView &#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">// chartView 缩放时</div><div class="line"></div><div class="line">- (void)chartScaled:(ChartViewBase * _Nonnull)chartView scaleX:(CGFloat)scaleX scaleY:(CGFloat)scaleY &#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">// chartView 拖拽时</div><div class="line"></div><div class="line">- (void)chartTranslated:(ChartViewBase * _Nonnull)chartView dX:(CGFloat)dX dY:(CGFloat)dY &#123;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>属性:</p>
+<p>分为对 <code>ChartView</code>, <code>ChartXAxis</code>, <code>ChartYAxis</code>, <code>ChartDataSet</code> 的设置</p>
+<p>• ChartView</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">chartView.descriptionText = @&quot;这是个图表&quot;;// 右下角描述</div><div class="line"></div><div class="line">chartView.noDataTextDescription = &quot;No Data&quot;;// 没有数据时描述</div><div class="line"></div><div class="line">chartView.drawGridBackgroundEnabled = YES;// 网格背景</div><div class="line"></div><div class="line">chartView.gridBackgroundColor = [UIColor redColor];//  背景颜色</div><div class="line"></div><div class="line">chartView.drawBarShadowEnabled = NO;// 阴影</div><div class="line"></div><div class="line">chartView.drawBordersEnabled = YES;// 边框</div><div class="line"></div><div class="line">chartView.pinchZoomEnabled = YES// XY 轴同时缩放</div><div class="line"></div><div class="line">chartView.scaleEnabled = YES;// 缩放</div><div class="line"></div><div class="line">chartView.highlightPerDragEnabled = YES;// 能否拖拽高亮线(数据点与坐标的提示线)</div><div class="line"></div><div class="line">chartView.autoScaleMinMaxEnabled = YES;// 缩放时自动调整最大最小值</div><div class="line"></div><div class="line">chartView.legend.enabled = NO;// 图例是否显示</div><div class="line"></div><div class="line">chartView.drawBordersEnabled = YES;// 表格边框是否显示</div><div class="line"></div><div class="line">chartView.scaleYEnabled = NO;//  缩放 Y 轴</div><div class="line"></div><div class="line">chartView.scaleXEnabled = YES;// 缩放 X 轴</div><div class="line"></div><div class="line">chartView.doubleTapToZoomEnabled = YES;//  双击缩放</div><div class="line"></div><div class="line">chartView.borderColor = [UIColor BlueColor];// 边框颜色</div><div class="line"></div><div class="line">chartView.dragDecelerationEnabled = YES;// 结束拖拽减速</div><div class="line"></div><div class="line">chartView.maxVisibleValueCount = 30;// 可见标签数量最大值(setDrawValues才生效)</div><div class="line"></div><div class="line">[chartView setExtraOffsetsWithLeft:10 top:0 right:10 bottom:0];// 偏移</div></pre></td></tr></table></figure>
+<p>• ChartXAxis</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">ChartXAxis *xAxis = chartView.xAxis;</div><div class="line"></div><div class="line">[xAxis setLabelsToSkip:4];// 跳过显示的标签数</div><div class="line"></div><div class="line">xAxis.labelPosition = XAxisLabelPositionBottom;// X轴的位置</div><div class="line"></div><div class="line">xAxis.labelTextColor = [UIColor whiteColor];//  颜色</div><div class="line"></div><div class="line">xAxis.spaceBetweenLabels = 16.0;// 标签之间的间距</div><div class="line"></div><div class="line">xAxis.avoidFirstLastClippingEnabled = YES;// 两侧超出图表</div><div class="line"></div><div class="line">xAxis.gridColor = [UIColor whiteColor];// X 轴网格线颜色</div><div class="line"></div><div class="line">xAxis.drawAxisLineEnabled = NO;// X 轴边线</div><div class="line"></div><div class="line">xAxis.drawGridLinesEnabled = NO;// X 轴网格线</div></pre></td></tr></table></figure>
+<p>• ChartYAxis</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">ChartYAxis *rightAxis = chartView.rightAxis;</div><div class="line"></div><div class="line">rightAxis.drawGridLinesEnabled = NO;// Y 轴网格线</div><div class="line"></div><div class="line">rightAxis.labelCount = 7;//  标签个数</div><div class="line"></div><div class="line">rightAxis.drawAxisLineEnabled = NO;// Y 轴边线</div><div class="line"></div><div class="line">rightAxis.startAtZeroEnabled = NO;//  从零显示</div><div class="line"></div><div class="line">rightAxis.granularityEnabled = YES;// 轴密度自适应</div><div class="line"></div><div class="line">rightAxis.labelPosition = YAxisLabelPositionInsideChart;// Y  轴位置</div><div class="line"></div><div class="line">rightAxis.spaceTop = 10;// 最高值的顶部间距占最高值的值的百分比</div><div class="line"></div><div class="line">rightAxis.showOnlyMinMaxEnabled = YES;// 只显示最大最小</div></pre></td></tr></table></figure>
+<p>• ChartDataSet</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">LineChartDataSet *set = [[LineChartDataSet alloc] initWithYVals:NSArray&lt;ChartDataEntry *&gt;];</div><div class="line"></div><div class="line">set.drawCubicEnabled = NO;// 曲线为圆滑曲线</div><div class="line"></div><div class="line">set.cubicIntensity = 0.2;// 曲线弧度</div><div class="line"></div><div class="line">set.drawCirclesEnabled = NO;// 每个点是否显示</div><div class="line"></div><div class="line">set.lineWidth = 0.8f;// 线宽</div><div class="line"></div><div class="line">set.circleRadius = 4.0;// 每个点的切角</div><div class="line"></div><div class="line">[set setCircleColor:UIColor.whiteColor];// 每个点的颜色</div><div class="line"></div><div class="line">set.highlightColor = [UIColor redColor];// 点击某个点时，横竖两条线的颜色</div><div class="line"></div><div class="line">set.fillColor = [UIColor whiteColor];// 填充颜色</div><div class="line"></div><div class="line">set.drawHorizontalHighlightIndicatorEnabled = NO;// 点击某个点时，水平线是否显示</div><div class="line"></div><div class="line">set.drawValuesEnabled = YES;// 在点上绘制Value</div><div class="line"></div><div class="line">// 渐变数组</div><div class="line"></div><div class="line">NSArray *gradientColors = @[(id)COLOR_BLUE.CGColor,(id)COLOR_BLUE.CGColor];</div><div class="line"></div><div class="line">CGGradientRef gradient = CGGradientCreateWithColors(nil, (CFArrayRef)gradientColors, nil);</div><div class="line"></div><div class="line">// 渐变设置</div><div class="line"></div><div class="line">set.fillAlpha = 0.13f;</div><div class="line"></div><div class="line">set.fill = [ChartFill fillWithLinearGradient:gradient angle:90.f];</div><div class="line"></div><div class="line">set.drawFilledEnabled = YES;</div></pre></td></tr></table></figure>
+<p>…还有很多, 就不一一列举了, 如果还有什么需要, 可以留言, 我会一一补充的, 后续还有实时数据, 动画, <code>MakerView</code>等其它</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/22/Charts进阶/" rel="next" title="Charts进阶">
+                <i class="fa fa-chevron-left"></i> Charts进阶
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="祁继宇" />
+          <p class="site-author-name" itemprop="name">祁继宇</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">祁继宇</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
