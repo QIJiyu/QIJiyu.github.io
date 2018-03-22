@@ -6,22 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://QIJiyu.github.io">
-  <title>Charts下的MakerView和ValueFormatter | 祁继宇&#39;s Blog</title>
+  <title>Charts下的MakerView和ValueFormatter | Imp 的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="上次我们说到了动态的刷新数据, 这次我们说下 MarkerView 和 ValueFormatter由于公司之前用的是 Charts 2.x, 更新之后很多方法都变了, 刚好需要修改这部分的代码  先上代码 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525">
+  <meta name="description" content="上次我们说到了动态的刷新数据, 这次我们说下 MarkerView 和 ValueFormatter由于公司之前用的是 Charts 2.x, 更新之后很多方法都变了, 刚好需要修改这部分的代码">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Charts下的MakerView和ValueFormatter">
 <meta property="og:url" content="http://QIJiyu.github.io/2018/03/22/Charts下的MakerView和ValueFormatter/index.html">
-<meta property="og:site_name" content="祁继宇&#39;s Blog">
-<meta property="og:description" content="上次我们说到了动态的刷新数据, 这次我们说下 MarkerView 和 ValueFormatter由于公司之前用的是 Charts 2.x, 更新之后很多方法都变了, 刚好需要修改这部分的代码  先上代码 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525">
+<meta property="og:site_name" content="Imp 的博客">
+<meta property="og:description" content="上次我们说到了动态的刷新数据, 这次我们说下 MarkerView 和 ValueFormatter由于公司之前用的是 Charts 2.x, 更新之后很多方法都变了, 刚好需要修改这部分的代码">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1478784-a4e028355d7109e2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-03-22T02:05:20.168Z">
+<meta property="og:updated_time" content="2018-03-22T09:18:52.078Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Charts下的MakerView和ValueFormatter">
-<meta name="twitter:description" content="上次我们说到了动态的刷新数据, 这次我们说下 MarkerView 和 ValueFormatter由于公司之前用的是 Charts 2.x, 更新之后很多方法都变了, 刚好需要修改这部分的代码  先上代码 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525">
+<meta name="twitter:description" content="上次我们说到了动态的刷新数据, 这次我们说下 MarkerView 和 ValueFormatter由于公司之前用的是 Charts 2.x, 更新之后很多方法都变了, 刚好需要修改这部分的代码">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1478784-a4e028355d7109e2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
   
-    <link rel="alternative" href="/atom.xml" title="祁继宇&#39;s Blog" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="Imp 的博客" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -30,7 +30,7 @@
   <style type="text/css">
   
     #container.show {
-      background: linear-gradient(200deg,#a0cfe4,#e8c37e);
+      background: #4d4d4d;
     }
   </style>
   
@@ -48,10 +48,10 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="null" class="js-avatar">
+			<img src="/assets/blogImg/7eb4c4a586e0.jpg" class="js-avatar">
 		</a>
 		<hgroup>
-		  <h1 class="header-author"><a href="/">祁继宇</a></h1>
+		  <h1 class="header-author"><a href="/">Imp</a></h1>
 		</hgroup>
 		
 
@@ -71,8 +71,6 @@
     			
             
     			
-    			<a q-on="click: openSlider(e, 'friends')" href="javascript:void(0)">友链</a>
-    			
             
     			
     			<a q-on="click: openSlider(e, 'aboutme')" href="javascript:void(0)">关于我</a>
@@ -82,13 +80,13 @@
 		<nav class="header-nav">
 			<div class="social">
 				
-					<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
+					<a class="github" target="_blank" href="https://github.com/QIJiyu" title="github"><i class="icon-github"></i></a>
 		        
-					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+					<a class="qq" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=634181157&site=qq&menu=yes" title="qq"><i class="icon-qq"></i></a>
 		        
-					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
+					<a class="jianshu" target="_blank" href="https://www.jianshu.com/u/116a02808cc4" title="jianshu"><i class="icon-jianshu"></i></a>
 		        
-					<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+					<a class="mail" target="_blank" href="mailto:imp22266@gmail.com" title="mail"><i class="icon-mail"></i></a>
 		        
 			</div>
 		</nav>
@@ -106,10 +104,10 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="null" class="js-avatar">
+				<img src="/assets/blogImg/7eb4c4a586e0.jpg" class="js-avatar">
 			</div>
 			<hgroup>
-			  <h1 class="header-author js-header-author">祁继宇</h1>
+			  <h1 class="header-author js-header-author">Imp</h1>
 			</hgroup>
 			
 			
@@ -123,13 +121,13 @@
 			<nav class="header-nav">
 				<div class="social">
 					
-						<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
+						<a class="github" target="_blank" href="https://github.com/QIJiyu" title="github"><i class="icon-github"></i></a>
 			        
-						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+						<a class="qq" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=634181157&site=qq&menu=yes" title="qq"><i class="icon-qq"></i></a>
 			        
-						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
+						<a class="jianshu" target="_blank" href="https://www.jianshu.com/u/116a02808cc4" title="jianshu"><i class="icon-jianshu"></i></a>
 			        
-						<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+						<a class="mail" target="_blank" href="mailto:imp22266@gmail.com" title="mail"><i class="icon-mail"></i></a>
 			        
 				</div>
 			</nav>
@@ -177,6 +175,7 @@
       
         <p>上次我们说到了动态的刷新数据, 这次我们说下 MarkerView 和 ValueFormatter<br>由于公司之前用的是 Charts 2.x, 更新之后很多方法都变了, 刚好需要修改这部分的代码</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/1478784-a4e028355d7109e2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<a id="more"></a>
 <p>先上代码</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div></pre></td><td class="code"><pre><div class="line">open var xAxisValueFormatter: IAxisValueFormatter?</div><div class="line">open var color: UIColor?</div><div class="line">open var arrowSize = CGSize(width: 15, height: 11)</div><div class="line">open var font: UIFont?</div><div class="line">open var textColor: UIColor?</div><div class="line">open var insets = UIEdgeInsets()</div><div class="line">open var minimumSize = CGSize()</div><div class="line"></div><div class="line">fileprivate var labelns: NSString?</div><div class="line">fileprivate var _labelSize: CGSize = CGSize()</div><div class="line">fileprivate var _paragraphStyle: NSMutableParagraphStyle?</div><div class="line">fileprivate var _drawAttributes = [String : AnyObject]()</div><div class="line"></div><div class="line">public init(color: UIColor,colorStock: UIColor, font: UIFont, insets: UIEdgeInsets, xAxisValueFormatter: IAxisValueFormatter)</div><div class="line">&#123;</div><div class="line">    super.init()</div><div class="line">    </div><div class="line">    self.color = color</div><div class="line">    self.font = font</div><div class="line">    self.textColor = colorStock</div><div class="line">    self.insets = insets</div><div class="line">    self.xAxisValueFormatter = xAxisValueFormatter</div><div class="line">    </div><div class="line">    _paragraphStyle = NSParagraphStyle.default.mutableCopy() as? NSMutableParagraphStyle</div><div class="line">    _paragraphStyle?.alignment = .center</div><div class="line">&#125;</div><div class="line"></div><div class="line">open override func offsetForDrawing(atPoint point: CGPoint) -&gt; CGPoint</div><div class="line">&#123;</div><div class="line">    let size = self.size</div><div class="line">    var point = point</div><div class="line">    point.x -= size.width / 2.0</div><div class="line">    point.y -= size.height</div><div class="line">    return super.offsetForDrawing(atPoint: point)</div><div class="line">&#125;</div><div class="line"></div><div class="line">open override func draw(context: CGContext, point: CGPoint)</div><div class="line">&#123;</div><div class="line">    if labelns == nil</div><div class="line">    &#123;</div><div class="line">        return</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    let offset = self.offsetForDrawing(atPoint: point)</div><div class="line">    let size = self.size</div><div class="line">    </div><div class="line">    var rect = CGRect(</div><div class="line">        origin: CGPoint(</div><div class="line">            x: point.x + offset.x,</div><div class="line">            y: point.y + offset.y),</div><div class="line">        size: size)</div><div class="line">    rect.origin.x -= size.width / 2.0</div><div class="line">    rect.origin.y -= size.height</div><div class="line">    </div><div class="line">    context.saveGState()</div><div class="line">    </div><div class="line">    if let color = color</div><div class="line">    &#123;</div><div class="line">        context.setFillColor(color.cgColor)</div><div class="line">        context.beginPath()</div><div class="line">        context.move(to: CGPoint(</div><div class="line">            x: rect.origin.x,</div><div class="line">            y: rect.origin.y))</div><div class="line">        context.addLine(to: CGPoint(</div><div class="line">            x: rect.origin.x + rect.size.width,</div><div class="line">            y: rect.origin.y))</div><div class="line">        context.addLine(to: CGPoint(</div><div class="line">            x: rect.origin.x + rect.size.width,</div><div class="line">            y: rect.origin.y + rect.size.height - arrowSize.height))</div><div class="line">        context.addLine(to: CGPoint(</div><div class="line">            x: rect.origin.x + (rect.size.width + arrowSize.width) / 2.0,</div><div class="line">            y: rect.origin.y + rect.size.height - arrowSize.height))</div><div class="line">        context.addLine(to: CGPoint(</div><div class="line">            x: rect.origin.x + rect.size.width / 2.0,</div><div class="line">            y: rect.origin.y + rect.size.height))</div><div class="line">        context.addLine(to: CGPoint(</div><div class="line">            x: rect.origin.x + (rect.size.width - arrowSize.width) / 2.0,</div><div class="line">            y: rect.origin.y + rect.size.height - arrowSize.height))</div><div class="line">        context.addLine(to: CGPoint(</div><div class="line">            x: rect.origin.x,</div><div class="line">            y: rect.origin.y + rect.size.height - arrowSize.height))</div><div class="line">        context.addLine(to: CGPoint(</div><div class="line">            x: rect.origin.x,</div><div class="line">            y: rect.origin.y))</div><div class="line">        context.fillPath()</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    rect.origin.y += self.insets.top</div><div class="line">    rect.size.height -= self.insets.top + self.insets.bottom</div><div class="line">    </div><div class="line">    UIGraphicsPushContext(context)</div><div class="line">    </div><div class="line">    labelns?.draw(in: rect, withAttributes: _drawAttributes)</div><div class="line">    </div><div class="line">    UIGraphicsPopContext()</div><div class="line">    </div><div class="line">    context.restoreGState()</div><div class="line">&#125;</div><div class="line"></div><div class="line">open override func refreshContent(entry: ChartDataEntry, highlight: Highlight)</div><div class="line">&#123;</div><div class="line">    setLabel(entry)</div><div class="line">&#125;</div><div class="line"></div><div class="line">open func setLabel(_ entry: ChartDataEntry)</div><div class="line">&#123;</div><div class="line">    </div><div class="line">    labelns = String(format: &quot;7日年化收益率: %.2f%%\n时间: %@&quot;, Float(entry.y) * 100, xAxisValueFormatter!.stringForValue(entry.x, axis: nil)) as NSString?</div><div class="line">    </div><div class="line">    _drawAttributes.removeAll()</div><div class="line">    _drawAttributes[NSFontAttributeName] = self.font</div><div class="line">    _drawAttributes[NSParagraphStyleAttributeName] = _paragraphStyle</div><div class="line">    _drawAttributes[NSForegroundColorAttributeName] = UIColor.white</div><div class="line">    </div><div class="line">    _labelSize = labelns?.size(attributes: _drawAttributes) ?? CGSize.zero</div><div class="line">    </div><div class="line">    var size = CGSize()</div><div class="line">    size.width = _labelSize.width + self.insets.left + self.insets.right</div><div class="line">    size.height = _labelSize.height + self.insets.top + self.insets.bottom</div><div class="line">    size.width = max(minimumSize.width, size.width)</div><div class="line">    size.height = max(minimumSize.height, size.height)</div><div class="line">    self.size = size</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>代码大部分都是我直接从 Charts 的官方 Demo 上 copy 下来的, 只有 setLabel 的部分地方重新修改了下, 之前 Charts 2.x 的时候</p>
@@ -198,7 +197,7 @@
             <span class="tooltip-content">
               <span class="tooltip-text">
                 <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我喝咖啡<i class="icon icon-quo-right"></i></p>
                   <div class="reward-box">
                     
                     
@@ -332,7 +331,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 祁继宇
+    		&copy; 2018 Imp
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -373,8 +372,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
       
     
       
-      
-      
     
       
       
@@ -386,15 +383,13 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     
     
       
-      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">所有文章</a></li>
+      <li style="width: 50%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">所有文章</a></li>
       
         
       
-      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'friends')"><a href="javascript:void(0)" q-class="active:friends">友链</a></li>
-      
         
       
-      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'aboutme')"><a href="javascript:void(0)" q-class="active:aboutme">关于我</a></li>
+      <li style="width: 50%" q-on="click: openSlider(e, 'aboutme')"><a href="javascript:void(0)" q-class="active:aboutme">关于我</a></li>
       
         
     </ul>
@@ -457,38 +452,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     	</section>
     
 
-    
-    	<section class="tools-section tools-section-friends" q-show="friends">
-  		
-        <ul class="search-ul">
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接1</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接2</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接3</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接4</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接5</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接6</a>
-            </li>
-          
-        </ul>
-  		
-    	</section>
     
 
     
