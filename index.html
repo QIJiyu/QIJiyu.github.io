@@ -145,6 +145,70 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-漫谈objc_msgSend" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/21/漫谈objc_msgSend/">漫谈 objc_msgSend</a>
+    </h1>
+  
+
+        
+        <a href="/2018/05/21/漫谈objc_msgSend/" class="archive-article-date">
+  	<time datetime="2018-05-21T10:04:40.077Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>　　你肯定听过 oc 的本质就是发消息这句话, 这篇文章就来介绍一下 objc_msgSend 是什么以及它是如何工作的。</p>
+<h3 id="OC-发消息机制"><a href="#OC-发消息机制" class="headerlink" title="OC 发消息机制"></a>OC 发消息机制</h3><p>　　Objective-C 的底层实现是 C, C 语言使用的是静态绑定, 也就是说, 当程序在编译期就知道了程序在运行期所调用的函数, 而 OC 则是动态绑定, 也就是当程序在运行期的时候才能知道具体调用什么方法。<br>　　我们常常会写到<code>[object messageName:parameter]</code>, 其中 object 叫做”<strong>接收者</strong>“, messageName 叫做”<strong>选择子</strong>“, parameter 为参数, 选择子和参数结合起来成为”消息”。<br>　　编译期看到此消息后, 会将其转换为 objc_msgSend 来调用, 这个函数会根据接受者和选择子的类型来寻找并调用合适的方法, 在每个对象所属的类中, 有一个”<strong>方法列表</strong>(<code>objc_method_list</code>)”, 里面存了该类所有的”<strong>方法</strong>(<code>objc_method</code>)”, 每个”方法”里包含 “<strong>方法名称</strong>(<code>SEL</code>)”  和 “<strong>函数指针</strong>(<code>IMP</code>)”, “函数指针”指向该方法的地址, 在每个对象所属的类里面还有一个”<strong>快速映射表</strong>(<code>objc_cache</code>)”, 当 object 发消息并且该消息没有在”快速映射表”里时候, 会先判断本类是否有与选择子名称相同的方法, 如果有会将该方法缓存起来并执行, 当后续还使用该类调用了同样的方法时, 会先去快速映射表里寻找<br>　　<br>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/05/21/漫谈objc_msgSend/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Charts入门" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -165,7 +229,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>最近工程用到了 Charts, 网上苦苦找寻, 只发现了 Android 的详细使用说明, 于是决定翻译一下, 方便大家以后使用, Android 原文: <a href="http://blog.csdn.net/u014136472/article/details/50273309" target="_blank" rel="external">庄宏基的博客</a></p>
+        <p>最近工程用到了 Charts, 网上苦苦找<br>寻, 只发现了 Android 的详细使用说明, 于是决定翻译一下, 方便大家以后使用, Android 原文: <a href="http://blog.csdn.net/u014136472/article/details/50273309" target="_blank" rel="external">庄宏基的博客</a></p>
 <p><a href="https://github.com/danielgindi/Charts" target="_blank" rel="external">Charts 地址</a></p>
 <p>• Chart 支持折线图、柱状图、散点图、烛状图、气泡图、饼状图和蜘蛛网状图, 除此之外还支持多种图表混合使用</p>
 <p>• Chart 支持缩放、拖拽、选择、动画</p>

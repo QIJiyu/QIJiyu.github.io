@@ -6,14 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://QIJiyu.github.io">
-  <title>Archives | Imp 的博客</title>
+  <title>漫谈 objc_msgSend | Imp 的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Imp 的博客">
-<meta property="og:url" content="http://QIJiyu.github.io/archives/index.html">
+  <meta name="description" content="你肯定听过 oc 的本质就是发消息这句话, 这篇文章就来介绍一下 objc_msgSend 是什么以及它是如何工作的。 OC 发消息机制　　Objective-C 的底层实现是 C, C 语言使用的是静态绑定, 也就是说, 当程序在编译期就知道了程序在运行期所调用的函数, 而 OC 则是动态绑定, 也就是当程序在运行期的时候才能知道具体调用什么方法。　　我们常常会写到[object messa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="漫谈 objc_msgSend">
+<meta property="og:url" content="http://QIJiyu.github.io/2018/05/21/漫谈objc_msgSend/index.html">
 <meta property="og:site_name" content="Imp 的博客">
+<meta property="og:description" content="你肯定听过 oc 的本质就是发消息这句话, 这篇文章就来介绍一下 objc_msgSend 是什么以及它是如何工作的。 OC 发消息机制　　Objective-C 的底层实现是 C, C 语言使用的是静态绑定, 也就是说, 当程序在编译期就知道了程序在运行期所调用的函数, 而 OC 则是动态绑定, 也就是当程序在运行期的时候才能知道具体调用什么方法。　　我们常常会写到[object messa">
+<meta property="og:updated_time" content="2018-05-22T08:56:10.404Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Imp 的博客">
+<meta name="twitter:title" content="漫谈 objc_msgSend">
+<meta name="twitter:description" content="你肯定听过 oc 的本质就是发消息这句话, 这篇文章就来介绍一下 objc_msgSend 是什么以及它是如何工作的。 OC 发消息机制　　Objective-C 的底层实现是 C, C 语言使用的是静态绑定, 也就是说, 当程序在编译期就知道了程序在运行期所调用的函数, 而 OC 则是动态绑定, 也就是当程序在运行期的时候才能知道具体调用什么方法。　　我们常常会写到[object messa">
   
     <link rel="alternative" href="/atom.xml" title="Imp 的博客" type="application/atom+xml">
   
@@ -143,167 +147,197 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-漫谈objc_msgSend" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      漫谈 objc_msgSend
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/05/21/漫谈objc_msgSend/" class="archive-article-date">
+
+        
+        <a href="/2018/05/21/漫谈objc_msgSend/" class="archive-article-date">
   	<time datetime="2018-05-21T10:04:40.077Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-21</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/21/漫谈objc_msgSend/">漫谈 objc_msgSend</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
+        
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/03/22/Charts入门/" class="archive-article-date">
-  	<time datetime="2018-03-22T02:27:46.471Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/03/22/Charts入门/">Charts入门</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/03/22/Charts进阶/" class="archive-article-date">
-  	<time datetime="2018-03-22T02:13:49.816Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/03/22/Charts进阶/">Charts进阶</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/03/22/Charts下的MakerView和ValueFormatter/" class="archive-article-date">
-  	<time datetime="2018-03-22T01:47:35.805Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/03/22/Charts下的MakerView和ValueFormatter/">Charts下的MakerView和ValueFormatter</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
+    <div class="article-entry" itemprop="articleBody">
       
-        </div></section>
+        <p>　　你肯定听过 oc 的本质就是发消息这句话, 这篇文章就来介绍一下 objc_msgSend 是什么以及它是如何工作的。</p>
+<h3 id="OC-发消息机制"><a href="#OC-发消息机制" class="headerlink" title="OC 发消息机制"></a>OC 发消息机制</h3><p>　　Objective-C 的底层实现是 C, C 语言使用的是静态绑定, 也就是说, 当程序在编译期就知道了程序在运行期所调用的函数, 而 OC 则是动态绑定, 也就是当程序在运行期的时候才能知道具体调用什么方法。<br>　　我们常常会写到<code>[object messageName:parameter]</code>, 其中 object 叫做”<strong>接收者</strong>“, messageName 叫做”<strong>选择子</strong>“, parameter 为参数, 选择子和参数结合起来成为”消息”。<br>　　编译期看到此消息后, 会将其转换为 objc_msgSend 来调用, 这个函数会根据接受者和选择子的类型来寻找并调用合适的方法, 在每个对象所属的类中, 有一个”<strong>方法列表</strong>(<code>objc_method_list</code>)”, 里面存了该类所有的”<strong>方法</strong>(<code>objc_method</code>)”, 每个”方法”里包含 “<strong>方法名称</strong>(<code>SEL</code>)”  和 “<strong>函数指针</strong>(<code>IMP</code>)”, “函数指针”指向该方法的地址, 在每个对象所属的类里面还有一个”<strong>快速映射表</strong>(<code>objc_cache</code>)”, 当 object 发消息并且该消息没有在”快速映射表”里时候, 会先判断本类是否有与选择子名称相同的方法, 如果有会将该方法缓存起来并执行, 当后续还使用该类调用了同样的方法时, 会先去快速映射表里寻找<br>　　<br><a id="more"></a>
+　　</p>
+<h3 id="什么是-objc-msgSend"><a href="#什么是-objc-msgSend" class="headerlink" title="什么是 objc_msgSend?"></a>什么是 objc_msgSend?</h3><p>objc_msgSend 的原型为:</p>
+<p><code>void objc_msgSend(id self, SEL cmd, ...)</code></p>
+<p>　　这是个”<strong>参数个数可变的函数</strong>“, 可以接收两个或两个以上的参数。第一个参数为接收者, 第二个参数为选择子, 后续参数为消息中的一些参数。<br>　　编译期会把刚刚上述的<code>[object messageName:parameter]</code>转换为下面这样的函数:</p>
+<p><code>objc_msgSend(object, @selector(messageName:), parameter);</code></p>
+<p>然后 <code>objc_msgSend</code> 函数会根据接收者和选择子的类型来调用适当的方法。</p>
+<p>下面为上述<code>objc_method_list</code>和<code>objc_cache</code>的结构<br>具体代码在苹果官方开源网站上: <a href="https://opensource.apple.com/source/objc4/objc4-208/runtime/objc-runtime.h.auto.html" target="_blank" rel="external">objc-runtime.h</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">struct objc_method_list &#123;</div><div class="line">#if defined(Release3CompatibilityBuild)</div><div class="line">        struct objc_method_list *method_next;</div><div class="line">#else</div><div class="line">	struct objc_method_list *obsolete;</div><div class="line">#endif</div><div class="line"></div><div class="line">	int method_count;</div><div class="line">#ifdef __alpha__</div><div class="line">	int space;</div><div class="line">#endif</div><div class="line">	struct objc_method &#123;</div><div class="line">		SEL method_name;</div><div class="line">		char *method_types;</div><div class="line">        IMP method_imp;</div><div class="line">	&#125; method_list[1];		/* variable length structure */</div><div class="line">&#125;;</div><div class="line"></div><div class="line">typedef struct objc_method *Method;</div><div class="line"></div><div class="line">struct objc_cache &#123;</div><div class="line">	unsigned int mask;            /* total = mask + 1 */</div><div class="line">	unsigned int occupied;        </div><div class="line">	Method buckets[1];</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p><code>objc_method_list</code> 是用于储存 <code>objc_method</code> 的数组列表<br><code>objc_cache</code> 是用于缓存调用过的 method<br><code>Method</code> 是 <code>objc_method</code> 结构体的指针</p>
+<h3 id="消息派发-消息传递"><a href="#消息派发-消息传递" class="headerlink" title="消息派发(消息传递)"></a>消息派发(消息传递)</h3><p>上述说到 <code>objc_msgSend</code> 函数会根据接收者和选择子的类型来调用适当的方法, 操作流程如下:</p>
+<ul>
+<li>该方法会先在接收者所属的类 <code>objc_method_list</code> 中搜索, 如果能找到选择子与方法名称相同的方法则执行</li>
+<li>如果找不到, 就会沿着继承体系向上寻找, 如果找到则执行</li>
+<li>如果最终还是没有找到与之对应的方法, 那么将会触发”<strong>消息转发</strong>“的机制</li>
+</ul>
+<h3 id="消息转发"><a href="#消息转发" class="headerlink" title="消息转发"></a>消息转发</h3><p>当接收者所属的类与向上的继承体系都没有找到该方法的时候, 会出发消息转发, 我们一定遇到过这样的问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">-[__NSCFConstantString setTitle:forState:]: unrecognized selector sent to instance 0x100fb0200</div><div class="line"></div><div class="line">*** Terminating app due to uncaught exception &apos;NSInvalidArgumentException&apos;, </div><div class="line"></div><div class="line">reason: &apos;-[__NSCFConstantString setTitle:forState:]: unrecognized selector sent to instance 0x100fb0200&apos;</div></pre></td></tr></table></figure>
+<p>这段异常信息是有 NSObject 的 <code>doesNotRecognizeSelector</code> 所抛出的, 就是 __NSCFConstantString 无法处理 setTitle:forState: 这个方法, 在经过了一系列的消息转发后由 <code>NSInvocation</code>把这条消息所有的信息封装起来, 调用了 <code>NSObject</code> 类的方法 <code>doesNotRecognizeSelector</code> 抛出异常。</p>
+<p>####消息转发分为三步:</p>
+<ul>
+<li><p>动态方法解析</p>
+<p>  　　对象在收到无法处理的消息时, 会先调用所属类的 <code>+ (BOOL)resolveInstanceMethod:(SEL)sel</code> 方法, 这个方法会判断这个类能否新增一个实例方法来处理这个选择子, 如果是收到的是类方法, 那么会调用 <code>+ (BOOL)resolveClassMethod:(SEL)sel</code> 来判断。<br>  　　上述方法执行的条件必须开发者已经写好了具体实现代码, 只是让系统在运行期动态新增方法</p>
+</li>
+<li><p>备援接收者</p>
+<p>  　　如果第一步无法处理这条消息, 那么在备援接收者这一步, 会调用 <code>- (id)forwardingTargetForSelector:(SEL)aSelector</code> 来寻找接收者是否有备援接收者, 如果有则返回该对象, 然后由这个对象去处理这条消息, 没有的话则返回 nil, 返回 nil 说明这条消息没有备援接收者, 然后会启用完整的消息转发。</p>
+</li>
+<li><p>完整的消息转发</p>
+<p>  　　如果转发算法已经到了这里, 那么就要启用完整的消息转发机制了。首先系统会创建 <code>NSInvocation</code> 对象, 把那条消息有关的全部信息封装到这个对象中, 然后”消息派发系统”会调用<br><code>- (void)forwardInvocation:(NSInvocation *)anInvocation</code><br>把消息指派给目标对象。<br>  　　实现此方法时, 会先判断本类是否可以处理此方法, 如果不可以, 则会向上调用父类的方法, 直到 NSObject。 如果最后调到了NSObject 类的方法时, 仍未处理这条消息, 那么会调用 <code>doesNotRecognizeSelector</code> 方法来抛出异常。</p>
+</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><blockquote>
+<ul>
+<li><code>[object messageName:parameter]</code> 会先在编译期转为 <code>objc_msgSend(object, @selector(messageName:), parameter)</code></li>
+<li>在运行期根据对象所在类下的 <code>objc_method_list</code> 或 <code>objc_cache</code> 寻找可执行的方法并执行</li>
+<li>如果找不到会沿继承体系向上查找可执行方法来执行</li>
+<li>如果仍然找不到会触发消息转发机制, 判断这个类能否新增一个实例方法来处理这个选择子</li>
+<li>无法处理则寻找接收者是否有备援接收者, 并由备援接收者处理消息</li>
+<li>创建并封装 <code>NSInvocation</code> 对象, “消息派发系统”把消息指派给目标对象, 一直向上调用父类方法, 到 NSObject 后仍未处理, 则抛出异常</li>
+</ul>
+</blockquote>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我喝咖啡<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/13/Charts图表联动/" class="archive-article-date">
-  	<time datetime="2017-07-13T06:55:05.364Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-13</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/13/Charts图表联动/">Charts图表联动</a>
-    </h1>
-  
+      
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://QIJiyu.github.io/2018/05/21/漫谈objc_msgSend/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2018/03/22/Charts入门/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Charts入门</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -326,8 +360,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
