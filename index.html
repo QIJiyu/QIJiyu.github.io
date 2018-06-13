@@ -165,7 +165,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>###什么是循环引用?<br>　　顾名思义, 就是几个对象某种方式互相引用, 形成了”环”。由于 Objective-C 内存管理使用引用计数的架构, 而并不是 GC(garbage collector), 而在 ARC(自动引用计数) 下所有 OC 对象的内存都交由系统统一管理。在 ARC 下 <code>retain</code>、<code>rerlease</code>、<code>autorelease</code>、<code>dealloc</code> 都无法被调用, 因为 ARC 要分析何处应该自动调用内存管理方法, 如果手动调用的话会干扰其工作。更多关于内存管理的内容我会在之后的文章解答。</p>
+        <h3 id="什么是循环引用"><a href="#什么是循环引用" class="headerlink" title="什么是循环引用?"></a>什么是循环引用?</h3><p>　　顾名思义, 就是几个对象某种方式互相引用, 形成了”环”。由于 Objective-C 内存管理使用引用计数的架构, 而并不是 GC(garbage collector), 而在 ARC(自动引用计数) 下所有 OC 对象的内存都交由系统统一管理。在 ARC 下 <code>retain</code>、<code>rerlease</code>、<code>autorelease</code>、<code>dealloc</code> 都无法被调用, 因为 ARC 要分析何处应该自动调用内存管理方法, 如果手动调用的话会干扰其工作。更多关于内存管理的内容我会在之后的文章解答。</p>
 <p>　　<img src="https://upload-images.jianshu.io/upload_images/1478784-7efd798f2a086e29.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/217" alt="两个或两个以上对象彼此强引用而形成循环应用"><br>
         
       
