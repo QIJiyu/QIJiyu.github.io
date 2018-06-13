@@ -14,14 +14,14 @@
 <meta property="og:url" content="http://QIJiyu.github.io/2018/06/13/如何优雅的处理block引发的循环引用-retain-cycle/index.html">
 <meta property="og:site_name" content="Imp 的博客">
 <meta property="og:description" content="###什么是循环引用?　　顾名思义, 就是几个对象某种方式互相引用, 形成了”环”。由于 Objective-C 内存管理使用引用计数的架构, 而并不是 GC(garbage collector), 而在 ARC(自动引用计数) 下所有 OC 对象的内存都交由系统统一管理。在 ARC 下 retain、rerlease、autorelease、dealloc 都无法被调用, 因为 ARC 要分析何">
-<meta property="og:image" content="http://qijiyu.github.io/2018/06/13/如何优雅的处理block引发的循环引用-retain-cycle/media/RetainCycle1.png">
-<meta property="og:image" content="http://qijiyu.github.io/2018/06/13/如何优雅的处理block引发的循环引用-retain-cycle/media/RetainCycle2.png">
-<meta property="og:image" content="http://qijiyu.github.io/2018/06/13/如何优雅的处理block引发的循环引用-retain-cycle/media/RetainCycle3-1.png">
-<meta property="og:updated_time" content="2018-06-13T05:40:24.134Z">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1478784-7efd798f2a086e29.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/217">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1478784-e82a0f9493292687.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/217">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1478784-4e82731b29cab1ef.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/217">
+<meta property="og:updated_time" content="2018-06-13T05:51:20.404Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何优雅的处理block引发的循环引用(retain cycle)">
 <meta name="twitter:description" content="###什么是循环引用?　　顾名思义, 就是几个对象某种方式互相引用, 形成了”环”。由于 Objective-C 内存管理使用引用计数的架构, 而并不是 GC(garbage collector), 而在 ARC(自动引用计数) 下所有 OC 对象的内存都交由系统统一管理。在 ARC 下 retain、rerlease、autorelease、dealloc 都无法被调用, 因为 ARC 要分析何">
-<meta name="twitter:image" content="http://qijiyu.github.io/2018/06/13/如何优雅的处理block引发的循环引用-retain-cycle/media/RetainCycle1.png">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/1478784-7efd798f2a086e29.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/217">
   
     <link rel="alternative" href="/atom.xml" title="Imp 的博客" type="application/atom+xml">
   
@@ -171,8 +171,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>###什么是循环引用?<br>　　顾名思义, 就是几个对象某种方式互相引用, 形成了”环”。由于 Objective-C 内存管理使用引用计数的架构, 而并不是 GC(garbage collector), 而在 ARC(自动引用计数) 下所有 OC 对象的内存都交由系统统一管理。在 ARC 下 <code>retain</code>、<code>rerlease</code>、<code>autorelease</code>、<code>dealloc</code> 都无法被调用, 因为 ARC 要分析何处应该自动调用内存管理方法, 如果手动调用的话会干扰其工作。更多关于内存管理的内容我会在之后的文章解答。<br>　　<a id="more"></a><br>　　<img src="media/RetainCycle1.png" alt="两个或两个以上对象彼此强引用而形成循环应用"></p>
-<p>　　<br>　　<img src="media/RetainCycle2.png" alt="循环引用中只剩一个对象还引用产生循环引用的某个对象"><br>　　<br>　　<img src="media/RetainCycle3-1.png" alt="移除此引用后 ABCD 四个对象所造成的循环引用就泄露了"><br>　　<br>　　<br>那么在 ARC 下经常产生循环引用的就只有三种情况了:</p>
+        <p>###什么是循环引用?<br>　　顾名思义, 就是几个对象某种方式互相引用, 形成了”环”。由于 Objective-C 内存管理使用引用计数的架构, 而并不是 GC(garbage collector), 而在 ARC(自动引用计数) 下所有 OC 对象的内存都交由系统统一管理。在 ARC 下 <code>retain</code>、<code>rerlease</code>、<code>autorelease</code>、<code>dealloc</code> 都无法被调用, 因为 ARC 要分析何处应该自动调用内存管理方法, 如果手动调用的话会干扰其工作。更多关于内存管理的内容我会在之后的文章解答。</p>
+<p>　　<img src="https://upload-images.jianshu.io/upload_images/1478784-7efd798f2a086e29.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/217" alt="两个或两个以上对象彼此强引用而形成循环应用"><br><a id="more"></a><br>　　两个或两个以上对象彼此强引用而形成循环应用</p>
+<p>　　<img src="https://upload-images.jianshu.io/upload_images/1478784-e82a0f9493292687.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/217" alt="循环引用中只剩一个对象还引用产生循环引用的某个对象"><br>　　<br>　　循环引用中只剩一个对象还引用产生循环引用的某个对象<br>　　<br>　　<img src="https://upload-images.jianshu.io/upload_images/1478784-4e82731b29cab1ef.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/217" alt="移除此引用后 ABCD 四个对象所造成的循环引用就泄露了"><br>　　<br>　　移除此引用后 ABCD 四个对象所造成的循环引用就泄露了<br>　　<br>那么在 ARC 下经常产生循环引用的就只有三种情况了:</p>
 <p>##<strong>Delegate:</strong></p>
 <p>　　在声明 delegate 的时候, 使用 <code>retain</code>、<code>strong</code>、<code>copy</code> 等强引用属性关键字修饰时, 会导致代理方拥有被代理方的引用, 被代理方又通过 delegate 拥有了代理方的引用, 这样就造成了循环引用。<br>　　解决方式就是在 ARC 下将关键字改为 weak 即可。</p>
 <p>##<strong>Block:</strong></p>
