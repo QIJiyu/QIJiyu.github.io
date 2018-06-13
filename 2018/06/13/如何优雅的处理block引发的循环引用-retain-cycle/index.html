@@ -6,14 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://QIJiyu.github.io">
-  <title>Archives | Imp 的博客</title>
+  <title>如何优雅的处理block引发的循环引用(retain cycle) | Imp 的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Imp 的博客">
-<meta property="og:url" content="http://QIJiyu.github.io/archives/index.html">
+  <meta name="description" content="###什么是循环引用?　　顾名思义, 就是几个对象某种方式互相引用, 形成了”环”。由于 Objective-C 内存管理使用引用计数的架构, 而并不是 GC(garbage collector), 而在 ARC(自动引用计数) 下所有 OC 对象的内存都交由系统统一管理。在 ARC 下 retain、rerlease、autorelease、dealloc 都无法被调用, 因为 ARC 要分析何">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何优雅的处理block引发的循环引用(retain cycle)">
+<meta property="og:url" content="http://QIJiyu.github.io/2018/06/13/如何优雅的处理block引发的循环引用-retain-cycle/index.html">
 <meta property="og:site_name" content="Imp 的博客">
+<meta property="og:description" content="###什么是循环引用?　　顾名思义, 就是几个对象某种方式互相引用, 形成了”环”。由于 Objective-C 内存管理使用引用计数的架构, 而并不是 GC(garbage collector), 而在 ARC(自动引用计数) 下所有 OC 对象的内存都交由系统统一管理。在 ARC 下 retain、rerlease、autorelease、dealloc 都无法被调用, 因为 ARC 要分析何">
+<meta property="og:image" content="http://qijiyu.github.io/2018/06/13/如何优雅的处理block引发的循环引用-retain-cycle/media/RetainCycle1.png">
+<meta property="og:image" content="http://qijiyu.github.io/2018/06/13/如何优雅的处理block引发的循环引用-retain-cycle/media/RetainCycle2.png">
+<meta property="og:image" content="http://qijiyu.github.io/2018/06/13/如何优雅的处理block引发的循环引用-retain-cycle/media/RetainCycle3-1.png">
+<meta property="og:updated_time" content="2018-06-13T05:40:24.134Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Imp 的博客">
+<meta name="twitter:title" content="如何优雅的处理block引发的循环引用(retain cycle)">
+<meta name="twitter:description" content="###什么是循环引用?　　顾名思义, 就是几个对象某种方式互相引用, 形成了”环”。由于 Objective-C 内存管理使用引用计数的架构, 而并不是 GC(garbage collector), 而在 ARC(自动引用计数) 下所有 OC 对象的内存都交由系统统一管理。在 ARC 下 retain、rerlease、autorelease、dealloc 都无法被调用, 因为 ARC 要分析何">
+<meta name="twitter:image" content="http://qijiyu.github.io/2018/06/13/如何优雅的处理block引发的循环引用-retain-cycle/media/RetainCycle1.png">
   
     <link rel="alternative" href="/atom.xml" title="Imp 的博客" type="application/atom+xml">
   
@@ -143,194 +151,193 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-如何优雅的处理block引发的循环引用-retain-cycle" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      如何优雅的处理block引发的循环引用(retain cycle)
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/06/13/如何优雅的处理block引发的循环引用-retain-cycle/" class="archive-article-date">
+
+        
+        <a href="/2018/06/13/如何优雅的处理block引发的循环引用-retain-cycle/" class="archive-article-date">
   	<time datetime="2018-06-13T05:29:44.888Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-13</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/06/13/如何优雅的处理block引发的循环引用-retain-cycle/">如何优雅的处理block引发的循环引用(retain cycle)</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
+        
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/05/21/漫谈objc_msgSend/" class="archive-article-date">
-  	<time datetime="2018-05-21T10:04:40.077Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/21/漫谈objc_msgSend/">漫谈 objc_msgSend</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/03/22/Charts入门/" class="archive-article-date">
-  	<time datetime="2018-03-22T02:27:46.471Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/03/22/Charts入门/">Charts入门</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/03/22/Charts进阶/" class="archive-article-date">
-  	<time datetime="2018-03-22T02:13:49.816Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/03/22/Charts进阶/">Charts进阶</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/03/22/Charts下的MakerView和ValueFormatter/" class="archive-article-date">
-  	<time datetime="2018-03-22T01:47:35.805Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/03/22/Charts下的MakerView和ValueFormatter/">Charts下的MakerView和ValueFormatter</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
+    <div class="article-entry" itemprop="articleBody">
       
-        </div></section>
+        <p>###什么是循环引用?<br>　　顾名思义, 就是几个对象某种方式互相引用, 形成了”环”。由于 Objective-C 内存管理使用引用计数的架构, 而并不是 GC(garbage collector), 而在 ARC(自动引用计数) 下所有 OC 对象的内存都交由系统统一管理。在 ARC 下 <code>retain</code>、<code>rerlease</code>、<code>autorelease</code>、<code>dealloc</code> 都无法被调用, 因为 ARC 要分析何处应该自动调用内存管理方法, 如果手动调用的话会干扰其工作。更多关于内存管理的内容我会在之后的文章解答。<br>　　<a id="more"></a><br>　　<img src="media/RetainCycle1.png" alt="两个或两个以上对象彼此强引用而形成循环应用"></p>
+<p>　　<br>　　<img src="media/RetainCycle2.png" alt="循环引用中只剩一个对象还引用产生循环引用的某个对象"><br>　　<br>　　<img src="media/RetainCycle3-1.png" alt="移除此引用后 ABCD 四个对象所造成的循环引用就泄露了"><br>　　<br>　　<br>那么在 ARC 下经常产生循环引用的就只有三种情况了:</p>
+<p>##<strong>Delegate:</strong></p>
+<p>　　在声明 delegate 的时候, 使用 <code>retain</code>、<code>strong</code>、<code>copy</code> 等强引用属性关键字修饰时, 会导致代理方拥有被代理方的引用, 被代理方又通过 delegate 拥有了代理方的引用, 这样就造成了循环引用。<br>　　解决方式就是在 ARC 下将关键字改为 weak 即可。</p>
+<p>##<strong>Block:</strong></p>
+<p>###有几种我们常见的 block 的使用:<br><strong>1、类方法不会造成循环引用, 因为类不会持有对象</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[UIView animateWithDuration:2 animations:^&#123;</div><div class="line">        </div><div class="line">&#125;];</div></pre></td></tr></table></figure>
+<p><strong>2、self 并没有对 block 进行引用, 只是 block 对 self 单方面引用, 所以没有造成循环引用</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^&#123;</div><div class="line">        </div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p><strong>3、在某个作用域内创建对象并且的 block 回调调用 self, self 没有持有该对象, 没有造成循环引用</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">TestObject *test = [[TestObject alloc] init];</div><div class="line">[test somethingBlock:^&#123;</div><div class="line">	[self doSomething];</div><div class="line">&#125;];</div></pre></td></tr></table></figure>
+<p><strong>4、self 强引用了 object, object 又强引用了 block, 而在 block 回调里又调用了 self, 导致 block 强引用 self, 造成循环引用, 导致 self 无法被释放</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[self.object somethingBlock:^&#123;</div><div class="line">		[self doSomething];</div><div class="line">&#125;];</div></pre></td></tr></table></figure>
+<p>通常会做如下处理:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">// 弱引用 self 这个对象</div><div class="line">__weak ViewController *weakSelf = self;</div><div class="line">[self.object somethingBlock:^&#123;</div><div class="line">	// 捕获 weakSelf 这个引用(由于 __weak 修饰的都是在栈内, 有可能被系统释放, 导致 block 内使用 weakSelf 调用的代码无效)</div><div class="line">    __strong ViewController *strongSelf = weakSelf;</div><div class="line">    [strongSelf doSomething];</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>也可以根据不同应用场景做不同的处理:</p>
+<ul>
+<li>当 object 不再使用时可以主动置为 nil, 从而打破循环引用。 如果 block 声明为属性, 也可以将属性主动置为 nil, 也可打破循环引用。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[self.object somethingBlock:^&#123;</div><div class="line">	[self doSomething];</div><div class="line">	self.object = nil;</div><div class="line">&#125;];</div></pre></td></tr></table></figure>
+<ul>
+<li>如果某类内部将 block 作为私有属性保存并使用, 当 block 后续不会再被使用到时, 可以主动将置为 nil, 从内部打破循环引用。</li>
+</ul>
+<p>　　下面是某类的具体实现, 内部有一私有属性将 block 捕获, 使用 <code>somethingBlock</code> 做一系列事情后, 将 block 回调。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">#import &quot;TestObject.h&quot;</div><div class="line"></div><div class="line">@interface TestObject ()</div><div class="line"></div><div class="line">@property (nonatomic, copy) void(^somethingBlock)(void);</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line">@implementation TestObject</div><div class="line"></div><div class="line">- (void)somethingBlock:(void(^)(void))block &#123;</div><div class="line">    _somethingBlock = block;</div><div class="line">    // 使用 _somethingBlock 做一些事情</div><div class="line">    !_somethingBlock ? : _somethingBlock();</div><div class="line">    _somethingBlock = nil;</div><div class="line">&#125;</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
+<p>　　于是是使用此类的代码就可以这样写:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[self.object somethingBlock:^&#123;</div><div class="line">	[self doSomething];</div><div class="line">&#125;];</div></pre></td></tr></table></figure>
+<p>##<strong>NSTimer:</strong></p>
+<p>　　当使用 <code>NSTimer</code> 定时器时, 定时器会强引用 <code>target</code>, 等自身失效时再释放此对象。执行完相关任务后, 没有循环的定时器会自动失效, 但是如果需要循环的定时器, 则需要调用 <code>- (void)invalidate;</code> 使定时器失效。<br>　　由于定时器会保留目标对象, 所有循环执行任务的时候通常会导致循环引用, 先看下面代码:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">@interface RepeatTimer ()</div><div class="line"></div><div class="line">- (void)startTimer;</div><div class="line">- (void)stopTimer;</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line">@implementation RepeatTimer &#123;</div><div class="line">    NSTimer *_repeatTimer;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (id)init &#123;</div><div class="line">    return [super init];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)dealloc &#123;</div><div class="line">    [_repeatTimer invalidate];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)startTimer &#123;</div><div class="line">    _repeatTimer = [NSTimer scheduledTimerWithTimeInterval:5</div><div class="line">                                              target:self</div><div class="line">                                            selector:@selector(doSomething)</div><div class="line">                                            userInfo:nil</div><div class="line">                                             repeats:YES];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)stopTimer &#123;</div><div class="line">    [_repeatTimer invalidate];</div><div class="line">    _repeatTimer = nil;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)doSomething &#123;</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>　　当使用者创建了 <code>RepeatTimer</code> 的对象并且调用 <code>- (void)startTimer</code> 后, <code>startTimer</code> 内部实现将 <code>RepeatTimer</code> 的对象自身传入 <code>NSTimer</code>, 使得 <code>NSTimer</code> 保留了此对象, 而 <code>RepeatTimer</code> 内部有持有了 <code>NSTimer</code> 的对象, 造成了循环引用, 只有当使用者调用 <code>- (void)stopTimer</code> 时, 才可以打破循环引用。<br>　　除非使用该类的代码完全在你的掌控之中, 否则没有办法保证其他在开发人员一定会调用 <code>- (void)stopTimer</code> 方法, 所以这并不是一个很好的解决方案。此外如果想在系统回收该类时令定时器无效也是没有用的, 因为 <code>NSTimer</code> 和 <code>RepeatTimer</code> 在相互引用, 所以 <code>RepeatTimer</code> 的对象绝对不会被释放。 当指向 <code>RepeatTimer</code> 实例的最后一个外部引用移走之后, 除了 <code>NSTimer</code> 再无其它类在对其保持引用, 也就是说该实例已经”丢失”了, 并永远不会被释放。<br>　　可以为 <code>NSTimer</code> 添加一个 category, 增加一个带有 block 的方法来解决此问题:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">@interface NSTimer (RepeatBlockTimer)</div><div class="line"></div><div class="line">+ (NSTimer *)scheduledMyTimerWithTimeInterval:(NSTimeInterval)timeInterval</div><div class="line">                                      repeats:(BOOL)repeats</div><div class="line">                                        block:(void(^)(void))block;</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line">@implementation NSTimer (RepeatBlockTimer)</div><div class="line"></div><div class="line">+ (NSTimer *)scheduledMyTimerWithTimeInterval:(NSTimeInterval)timeInterval</div><div class="line">                                      repeats:(BOOL)repeats</div><div class="line">                                        block:(void(^)(void))block &#123;</div><div class="line">    return [self scheduledTimerWithTimeInterval:timeInterval</div><div class="line">                                         target:self</div><div class="line">                                       selector:@selector(blockInvoke:)</div><div class="line">                                       userInfo:[block copy]</div><div class="line">                                        repeats:repeats];</div><div class="line">&#125;</div><div class="line"></div><div class="line">+ (void)blockInvoke:(NSTimer *)timer &#123;</div><div class="line">    void (^block)(void) = timer.userInfo;</div><div class="line">    !block ? : block();</div><div class="line">&#125;</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
+<p>　　上面代码将定时器所执行的任务封装成 block, 在调用定时器的时候作为 <code>userInfo</code> 的参数传进去 , 传入时将 block 拷贝的堆上, 否则稍后执行它的时候, 该 block 可能已经无效。定时器现在的 <code>target</code> 是 <code>NSTimer</code> 的对象, 这是个单例, 所以不需要关心定时器是否会保留它。 不过此处依然有循环引用, 不过因为类对象是不需要回收的, 所以不考虑。<br>　　然后在之前 <code>- (void)stopTimer</code> 里做如下修改:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (void)startTimer &#123;</div><div class="line">    __weak typeof(self) weakSelf = self;</div><div class="line">    _repeatTimer = [NSTimer scheduledMyTimerWithTimeInterval:5</div><div class="line">    							  repeats:self</div><div class="line">    							    block:^(void) &#123;</div><div class="line">        RepeatTimer *strongSelf = weakSelf;</div><div class="line">        [strongSelf doSomething];</div><div class="line">    &#125;];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>　　使用 <code>__weak</code> 定义一个弱引用指向 self, 在 block 内部捕获这个引用。这样做的好处是保证 self 不会被定时器所引用, 保证实例(也就是捕获的引用)在执行期间持续存活。<br>　　这样在外部指向 <code>RepeatTimer</code> 的引用为0时, 该实例对象就会被回收, 同时会停止定时器循环所做的操作。<br>　　不过 iOS 在 10.0 以后系统已经提供了此方法: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">+ (NSTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)interval repeats:(BOOL)repeats block:(void (^)(NSTimer *timer))block</div></pre></td></tr></table></figure>
+<p>　　在使用时只需下面这样就可以了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (void)startTimer &#123;</div><div class="line">    __weak typeof(self) weakSelf = self;</div><div class="line">    _repeatTimer = [NSTimer scheduledTimerWithTimeInterval:5 repeats:self block:^(NSTimer *timer) &#123;</div><div class="line">        RepeatTimer *strongSelf = weakSelf;</div><div class="line">        [strongSelf doSomething];</div><div class="line">    &#125;];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我喝咖啡<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/13/Charts图表联动/" class="archive-article-date">
-  	<time datetime="2017-07-13T06:55:05.364Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-13</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/13/Charts图表联动/">Charts图表联动</a>
-    </h1>
-  
+      
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://QIJiyu.github.io/2018/06/13/如何优雅的处理block引发的循环引用-retain-cycle/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2018/05/21/漫谈objc_msgSend/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">漫谈 objc_msgSend</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -353,8 +360,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
